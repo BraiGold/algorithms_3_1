@@ -1,12 +1,26 @@
 #include "./kaioken.cpp"
 #include "./genkidama.cpp"
 #include "./kamehameha.cpp"
+#include <iostream>
+
+using namespace std;
+using std::cout;
+using std::endl;
 
 int main(int argc, char* argv[]) {
-	cout << "resuelvo kaioken:\n";
-	kaioken(8);
 
-	cout << "\n Resuelvo genikidama:\n";
+	cout << "resuelvo kaioken:\n";
+	cout << "Kaioken 5: " << endl; //debug
+	kaioken(5);
+	cout << "Kaioken 6: " << endl; //debug
+	kaioken(6);
+	cout << "Kaioken 7: " << endl; //debug
+	kaioken (7);
+	cout << "Kaioken 8: " << endl; //debug
+	kaioken (8);
+
+
+	cout << "\nResuelvo genikidama:\n";
 
 
 	std::pair<int,int>e1(100,0);
@@ -23,7 +37,7 @@ int main(int argc, char* argv[]) {
 
 	list<int>DisparosEfectuados;
 	int G=genkidama(5,26,enemigos,&DisparosEfectuados);
-//	cout << G;
+	cout << G << std::endl;
   int cantDisparos=DisparosEfectuados.size();
 
 	//muestro los disparos efectuados
@@ -33,6 +47,5 @@ int main(int argc, char* argv[]) {
 
 	}
 	std::cout << std::endl;
-
     return 0;
 }
