@@ -1,0 +1,40 @@
+% Definición de funciones que se usan en el algoritmo:
+\SetKwFunction{atajoFuncion}{nombreFuncion}
+
+\begin{algoritmo}{nombreAlgoritmo}{parametros}{tipoSalida}
+  % Crear e inicializar variables:
+  \tipo{tipoVariable} $nombreVariable \gets valor$ \;
+  % Nota: las líneas sin comentario deben terminar en \;
+
+  % Comentarios:
+  Contenido de la linea \tcp*[h]{Comentario pegado al texto, onda C++} \com*{Comentario contra el margen}
+  Contenido de la linea \com*[h]{Comentario pegado al texto} \tcp*{Comentario contra el margen, onda C++}
+
+  % Llamada a función definida antes:
+  \atajoFuncion{parametros}
+
+  % If/then:
+  \If{guarda}{
+    Codigo \;
+  }
+
+  % If/then/else:
+  \eIf(\com*[f]{Comentario opcional}){guarda}{
+    Codigo (then) \;
+  }(\com*[f]{Otro comentario opcional}){
+    Codigo (else) \;
+  }
+
+  % If/then/elseif:
+  \uIf{guarda}{
+    Codigo (then) \;
+  }\ElseIf{otra guarda}{
+    Codigo (else) \;
+  }
+
+  % While:
+  \While(\com*[f]{Comentario opcional}){guarda}{
+    Codigo \;
+  }
+
+\end{algoritmo}
