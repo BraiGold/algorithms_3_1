@@ -7,7 +7,7 @@ using namespace std;
 using std::cout;
 using std::endl;
 
-int main(int argc, char* argv[]) {
+int main() {
 
 	cout << "resuelvo kaioken:\n";
 	cout << "Kaioken 5: " << endl; //debug
