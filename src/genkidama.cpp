@@ -18,11 +18,13 @@ int genkidama (int N,int T,std::vector<std::pair<int,int> >& enemigos,std::list<
   int i=0;
 
   while (i<N) {
-
+  //  std::cerr << "llego hasta el "<< i << std::endl;
     int aEsteLeDisparo=masLejanoQueMataAl(i,N,T,enemigos);//busco el mas grande(lejano) que mate al primero de los que quedan vivos
+  //  std::cerr << "masLejanoQueMataAl Da: "<< aEsteLeDisparo << std::endl;
     i = masLejanoQueMata(aEsteLeDisparo,N,T,enemigos) + 1;//empiezo a preguntar desde el sigiente al ultimo en morir
-
+  //  std::cerr << "se Rompe en masLejanoQueMata pues da:" << i<< std::endl;
     DisparosEfectuados->push_back(aEsteLeDisparo);
+    //std::cerr << "se rompe haciendo el push_back" << std::endl;
     cantGenkidamas++;
   }
   return cantGenkidamas;
@@ -30,7 +32,8 @@ int genkidama (int N,int T,std::vector<std::pair<int,int> >& enemigos,std::list<
 
 int masLejanoQueMataAl(int i,int N, int T,vector<pair<int,int> >& enemigos){
     int j=i+1;//pregunto desde el siguiente porque es obvio que i mata a i
-    while(mataAl(j,i,N,T,enemigos)){//mata j al i?
+//    std::cerr << "el j="<<j<<"  mata al i="<<i <<" esta afirmacion da:"<<mataAl(j,i,N,T,enemigos) << std::endl;
+    while(j<enemigos.size() && mataAl(j,i,N,T,enemigos)){//mata j al i?
       j++;
     }
     return j-1;//el primero que falla menos 1 es el ultimo que efectivamente mata al i
@@ -38,7 +41,7 @@ int masLejanoQueMataAl(int i,int N, int T,vector<pair<int,int> >& enemigos){
 
 int masLejanoQueMata(int aEsteLeDisparo, int N,int T, vector<pair<int,int> >& enemigos){
   int j=aEsteLeDisparo+1;//pregunto desde el siguinte porque es obv
-  while(mataAl(aEsteLeDisparo,j,N,T,enemigos)){//mata i al j?
+  while(j<enemigos.size() && mataAl(aEsteLeDisparo,j,N,T,enemigos)){//mata i al j?
     j++;
   }
   return j-1;
@@ -46,34 +49,43 @@ int masLejanoQueMata(int aEsteLeDisparo, int N,int T, vector<pair<int,int> >& en
 }
 
 bool mataAl(int i,int j,int N,int T,vector<pair<int,int> >& enemigos){//mata i al j?
+//  std::cerr << "enemigos[i]=("<<enemigos[i].first<<";"<<enemigos[i].second<<") y enemigos[j]=("<<enemigos[j].first <<";" <<enemigos << std::endl;
   if(enemigos[i].first + T >= enemigos[j].first && enemigos[i].second + T >= enemigos[j].second )
     return true;
   else
     return false;
 }
 
-std::vector<std::pair<int,int> > enemigos;
+
 
 int main() {
   int n,t,a,b;
   cin >> n >> t;
-
+std::vector<std::pair<int,int> > enemigos;
+//std::cerr << n << " " <<t << std::endl;
   for (int i = 0; i < n; i++) {
     cin >> a >> b;
-    std::pair<int, int>e1(a,b); 
+  //  std::cerr << i<<"----"<< a<<" "<<b << std::endl;
+    std::pair<int, int>e1(a,b);
     enemigos.push_back(e1);
   }
   list<int>DisparosEfectuados;
+  //std::cerr << "llego: " << std::endl;
   int G=genkidama(n,t,enemigos,&DisparosEfectuados);
+  //std::cerr << "Respuesta: " << std::endl;
   cout << G << endl;
-  
+  //std::cerr << "Respuesta: " << std::endl;
+  //std::cerr << G << std::endl;
+
   int cantDisparos=DisparosEfectuados.size();
   //muestro los disparos efectuados
-  for(int i=0; i < cantDisparos; i++) {
-    cout << DisparosEfectuados.back() + 1 << ' ';
-    DisparosEfectuados.pop_back();
+  for(int i=0; i < cantDisparos-1; i++) {
+    cout << DisparosEfectuados.front() + 1 << ' ';
+    //  cerr << DisparosEfectuados.front() + 1 << ' ';
+    DisparosEfectuados.pop_front();
   }
-    cout << endl;
+    std::cout << DisparosEfectuados.front() + 1 << std::endl;
+  //  std::cerr << DisparosEfectuados.back() << std::endl;
   /*std::pair<int,int>e1(100,0);
   std::pair<int,int>e2(75,25);
   std::pair<int,int>e3(50,50);
