@@ -4,6 +4,22 @@
 #include <iostream>     // std::cout
 #include <list>
 #include <vector>
+#include <cstdio>
+#include <sys/time.h>
+
+timeval timeStart, timeEnd;
+
+void init_time()
+{
+    gettimeofday(&timeStart,NULL);
+}
+
+double get_time()
+{
+    gettimeofday(&timeEnd,NULL);
+    return (1000000*(timeEnd.tv_sec-timeStart.tv_sec)+(timeEnd.tv_usec-timeStart.tv_usec))/1000000.0;
+}
+
 
 
 //int genkidama (int N,int T,std::vector<std::pair<int,int> > enemigos,std::list<int>* DisparosEfectuados);
@@ -58,56 +74,42 @@ bool mataAl(int i,int j,int N,int T,vector<pair<int,int> >& enemigos){//mata i a
 
 
 
-int main() {
+int main(int argc, char* argv[]) {
+  bool pidieronTiempo = false; 
+  double tiempo;
+  if (argc > 1) {
+    if (argv[1] == string("-t")) {
+      pidieronTiempo = true;
+      cerr << "Pidieron Tiempo" << endl;
+    }
+  }
   int n,t,a,b;
   cin >> n >> t;
-std::vector<std::pair<int,int> > enemigos;
-//std::cerr << n << " " <<t << std::endl;
+  vector<std::pair<int,int> > enemigos;
   for (int i = 0; i < n; i++) {
     cin >> a >> b;
-  //  std::cerr << i<<"----"<< a<<" "<<b << std::endl;
     std::pair<int, int>e1(a,b);
     enemigos.push_back(e1);
   }
   list<int>DisparosEfectuados;
-  //std::cerr << "llego: " << std::endl;
+
+  init_time();
   int G=genkidama(n,t,enemigos,&DisparosEfectuados);
-  //std::cerr << "Respuesta: " << std::endl;
-  cout << G << endl;
-  //std::cerr << "Respuesta: " << std::endl;
-  //std::cerr << G << std::endl;
+  tiempo = get_time();
 
-  int cantDisparos=DisparosEfectuados.size();
-  //muestro los disparos efectuados
-  for(int i=0; i < cantDisparos-1; i++) {
-    cout << DisparosEfectuados.front() + 1 << ' ';
-    //  cerr << DisparosEfectuados.front() + 1 << ' ';
+  if (!pidieronTiempo) { 
+    cout << G << endl;
+
+    int cantDisparos=DisparosEfectuados.size();
+    for(int i=0; i < cantDisparos-1; i++) {
+      cout << DisparosEfectuados.front() + 1 << ' ';
     DisparosEfectuados.pop_front();
+    }
+      cout << DisparosEfectuados.front() + 1 << endl;
   }
-    std::cout << DisparosEfectuados.front() + 1 << std::endl;
-  //  std::cerr << DisparosEfectuados.back() << std::endl;
-  /*std::pair<int,int>e1(100,0);
-  std::pair<int,int>e2(75,25);
-  std::pair<int,int>e3(50,50);
-  std::pair<int,int>e4(25,75);
-  std::pair<int,int>e5(0,100);
-  std::vector<std::pair<int,int> > enemigos;
-  enemigos.push_back(e1);
-  enemigos.push_back(e2);
-  enemigos.push_back(e3);
-  enemigos.push_back(e4);
-  enemigos.push_back(e5);
 
-  list<int>DisparosEfectuados;
-  int G=genkidama(5,26,enemigos,&DisparosEfectuados);
-  cout << G << std::endl;
-  int cantDisparos=DisparosEfectuados.size();
-
-  //muestro los disparos efectuados
-  for(int i=0; i< cantDisparos; ++i){
-    std::cout << DisparosEfectuados.back() << ' ';
-    DisparosEfectuados.pop_back();
-
+  if (pidieronTiempo) {
+     printf("%.10f ", tiempo);
   }
-  std::cout << std::endl; */
+
 }
