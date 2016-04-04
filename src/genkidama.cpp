@@ -80,7 +80,6 @@ int main(int argc, char* argv[]) {
   if (argc > 1) {
     if (argv[1] == string("-t")) {
       pidieronTiempo = true;
-      cerr << "Pidieron Tiempo" << endl;
     }
   }
   int n,t,a,b;
