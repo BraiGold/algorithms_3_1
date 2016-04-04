@@ -32,7 +32,7 @@ int main() {
 
   		int cuantosPtosFaltan = n - 1 ; 
 
-		for(int i=0; i<n; i++){
+		for(int i=0; i<n-1; i++){
 			x = rand() % (x_anterior) + 0; //entre 0 y x_anterior - 1
 			while(x < cuantosPtosFaltan){
 			x = rand() % (x_anterior) + 0; //entre 0 y x_anterior - 1

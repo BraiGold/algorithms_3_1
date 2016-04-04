@@ -24,14 +24,14 @@ done
 
 #genero archivos de entrada
 
-printf "%d \n" $iteraciones >> $(dirname $0)/tiempos-exp1.txt
+printf "%d \n" $iteraciones >> $(dirname $0)/tiempos-kaioken.txt
 
 for k in $n; do
-  printf "%d " $k >> $(dirname $0)/tiempos-exp1.txt
+  printf "%d " $k >> $(dirname $0)/tiempos-kaioken.txt
   for h in $(seq 1 $iteraciones); do
-    printf "%d " $k |  $(dirname $0)/../../kaioken -t >> $(dirname $0)/tiempos-exp1.txt
+    printf "%d " $k |  $(dirname $0)/../../kaioken -t >> $(dirname $0)/tiempos-kaioken.txt
   done
-  printf "\n">> $(dirname $0)/tiempos-exp1.txt
+  printf "\n">> $(dirname $0)/tiempos-kaioken.txt
 done
 
-#octave -q $(dirname $0)/exp1.m
+octave -q $(dirname $0)/kaioken.m
