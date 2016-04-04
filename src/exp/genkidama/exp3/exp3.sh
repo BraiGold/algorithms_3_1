@@ -61,4 +61,4 @@ done
 printf "\n">> $(dirname $0)/tiempos-exp3.txt
 
 
-#octave -q $(dirname $0)/exp3.m
+octave -q $(dirname $0)/exp3.m
