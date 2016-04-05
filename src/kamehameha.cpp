@@ -11,7 +11,7 @@ vector<pair<int,int> > generarConjSinLD(pair<pair<int,int>,pair<int,int> > par,s
 vector<pair<pair<int,int>,pair<int,int> > > mejoresPares(vector<pair<int,int> > puntos);
 int conjMasChico (vector<vector<pair<pair<int,int>,pair<int,int> > > > posiblesConvinaciones);
 
-int kamehameha(std::vector<std::pair<int,int> > puntos,vector<pair<pair<int,int>,pair<int,int> > > paresOptimos){
+int kamehameha(std::vector<std::pair<int,int> > puntos,vector<pair<pair<int,int>,pair<int,int> > >& paresOptimos){
    paresOptimos = mejoresPares(puntos);
 
     return paresOptimos.size();
@@ -90,6 +90,11 @@ int main(){
     pair<int,int> p4(1,1);
     pair<int,int> p5(2,2);
     pair<int,int> p6(3,3);
+    pair<int,int> p7(2,3);
+    pair<int,int> p8(4,5);
+    pair<int,int> p9(8,10);
+    pair<int,int> p10(16,20);
+
     vector<pair<int,int> > puntos;
     puntos.push_back(p1);
     puntos.push_back(p2);
@@ -97,11 +102,16 @@ int main(){
     puntos.push_back(p4);
     puntos.push_back(p5);
     puntos.push_back(p6);
+    puntos.push_back(p7);
+    puntos.push_back(p8);
+  //  puntos.push_back(p9);
+  //  puntos.push_back(p10);
 
     int cantDisparos=kamehameha(puntos,paresOptimos);
 
     std::cout << "cantidad de disparos: " << cantDisparos << std::endl;
-    std::cout << "fueron: " << std::endl;
+    std::cout << "fueron: " <<paresOptimos.size() << std::endl;
+
     for (int i = 0; i < paresOptimos.size() ; i++) {
       std::cout <<"[(" << paresOptimos[i].first.first<<";"<<paresOptimos[i].first.second<<")"<<"(" << paresOptimos[i].second.first<<";"<<paresOptimos[i].second.second<<")" <<"] " << std::endl;
     }
