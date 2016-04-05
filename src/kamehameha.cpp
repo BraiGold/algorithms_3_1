@@ -78,6 +78,8 @@ int conjMasChico (vector<vector<pair<pair<int,int>,pair<int,int> > > > posiblesC
 vector<pair<int,int> > generarConjSinLD(pair<pair<int,int>,pair<int,int> > par,std::vector<std::pair<int,int> > puntos){
   //std::cerr << "genero conjSinLD de: ("<<par.first.first<<";"<<par.first.second<<") ("<<par.second.first<<";"<<par.second.second<<")" << std::endl;
   vector<pair<int,int> > conjSinLD;
+  if(par.first==par.second){return puntos; }
+
   for (int i = 0; i < puntos.size(); i++) {
           //        (x1 -x3)             *              (y1-y2)               !=             (x1-x2)              *              (y1-y3)
     if ((par.first.first-puntos[i].first)*(par.first.second-par.second.second)!=(par.first.first-par.second.first)*(par.first.second-puntos[i].second)){
@@ -94,6 +96,7 @@ int main(){
   vector<std::pair<int,int> > puntos;
   for (int i = 0; i < n; i++) {
     cin >> a >> b;
+    //std::cerr << i<<"---("<< a << ";" << b<<")"<< std::endl;
     std::pair<int, int>p1(a,b);
     puntos.push_back(p1);
   }
@@ -130,6 +133,7 @@ int main(){
     int cantLD;
 
     for (int i = 0; i < paresOptimos.size(); i++) {
+    //  std::cerr << "antes de conjLD it:"<< i << std::endl;
       cantLD=ConjLD(paresOptimos[i],puntosCopia,matadosConEstePar,puntosCopiaMascara);//cuenta los LD Y ademas arma una lista en matadosConEstePar
       mostrarLinea(cantLD,matadosConEstePar);
       matadosConEstePar.clear();
@@ -146,8 +150,17 @@ int main(){
 
 int ConjLD(pair<pair<int,int>,pair<int,int> >  par,vector<pair<int,int> >& puntosCopia,vector<int>& matadosConEstePar,vector<bool>& puntosCopiaMascara){
   int cantLD=0;
+  if(par.first==par.second){
+    int i=0;
+    while(i<puntosCopia.size() && puntosCopia[i]!=par.first){
+      i++;
+    }
+    matadosConEstePar.push_back(i);
+    return 1;
+  }
 
   for (int i = 0; i < puntosCopia.size(); i++) {
+
           //        (x1 -x3)             *              (y1-y2)               ==             (x1-x2)              *              (y1-y3)
     if ((puntosCopiaMascara[i])&&((par.first.first-puntosCopia[i].first)*(par.first.second-par.second.second)==(par.first.first-par.second.first)*(par.first.second-puntosCopia[i].second))){
       matadosConEstePar.push_back(i);
@@ -161,10 +174,12 @@ int ConjLD(pair<pair<int,int>,pair<int,int> >  par,vector<pair<int,int> >& punto
 
 void mostrarLinea(int cantLD,vector<int>& matadosConEstePar){
   std::cout << cantLD<<" ";
-
+  //std::cerr << "tamanio de matadosConEstePar: "<<matadosConEstePar.size() << std::endl;
   for (int i = 0; i < matadosConEstePar.size()-1; i++) {
     std::cout << matadosConEstePar[i]+1<<" ";
+    //std::cerr << matadosConEstePar[i]+1<<" ";
   }
 
   std::cout << matadosConEstePar[matadosConEstePar.size()-1]+1 << std::endl;
+  //std::cerr << matadosConEstePar[matadosConEstePar.size()-1]+1 << std::endl;
 }
