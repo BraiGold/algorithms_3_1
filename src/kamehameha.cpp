@@ -74,10 +74,14 @@ int conjMasChico (vector<vector<pair<pair<int,int>,pair<int,int> > > > posiblesC
 }
 
 vector<pair<int,int> > generarConjSinLD(pair<pair<int,int>,pair<int,int> > par,std::vector<std::pair<int,int> > puntos){
+  std::cerr << "genero conjSinLD de: ("<<par.first.first<<";"<<par.first.second<<") ("<<par.second.first<<";"<<par.second.second<<")" << std::endl;
   vector<pair<int,int> > conjSinLD;
   for (int i = 0; i < puntos.size(); i++) {
-    if ((puntos[i].first-par.first.first)*(par.first.second-par.second.second)!=(par.first.second-par.second.first)*(puntos[i].second-par.first.second))
+          //        (x1 -x3)             *              (y1-y2)               !=             (x1-x2)              *              (y1-y3)
+    if ((par.first.first-puntos[i].first)*(par.first.second-par.second.second)!=(par.first.first-par.second.first)*(par.first.second-puntos[i].second)){
       conjSinLD.push_back(puntos[i]);
+      std::cerr << "---("<<puntos[i].first<<";"<<puntos[i].second<<")" << std::endl;
+    }
   }
   return conjSinLD;
 }
@@ -86,14 +90,14 @@ int main(){
     vector<pair<pair<int,int>,pair<int,int> > > paresOptimos;
     pair<int,int> p1(0,0);
     pair<int,int> p2(1,0);
-    pair<int,int> p3(5,0);
-    pair<int,int> p4(1,1);
+    pair<int,int> p3(1,1);
+    pair<int,int> p4(2,5);
     pair<int,int> p5(2,2);
     pair<int,int> p6(3,3);
     pair<int,int> p7(2,3);
-    pair<int,int> p8(4,5);
-    pair<int,int> p9(8,10);
-    pair<int,int> p10(16,20);
+  //  pair<int,int> p8(4,5);
+  //  pair<int,int> p9(8,10);
+  //  pair<int,int> p10(16,20);
 
     vector<pair<int,int> > puntos;
     puntos.push_back(p1);
@@ -103,7 +107,7 @@ int main(){
     puntos.push_back(p5);
     puntos.push_back(p6);
     puntos.push_back(p7);
-    puntos.push_back(p8);
+  //  puntos.push_back(p8);
   //  puntos.push_back(p9);
   //  puntos.push_back(p10);
 
