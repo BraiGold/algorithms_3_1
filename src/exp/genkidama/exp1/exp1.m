@@ -13,7 +13,7 @@ ultimo = ult(1);
 primero = enemigos_x(1);
 
 eje_x = primero:ultimo;
-eje_y = (eje_x/60000000);
+eje_y = (eje_x/57000000);
 
 
 hold on;

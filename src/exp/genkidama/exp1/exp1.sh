@@ -22,11 +22,11 @@ while getopts 'ha:' opt; do
 done
 
 #genero archivos de entrada
-for i in $n; do
-  echo "Esta creando el archivo numero"
-  printf "%d\n " $i
-  printf "%d %d %d \n" $i $t $cota | $(dirname $0)/generador #parametros del programa generador de archivos de entrada (n, t, cota) 
-done 
+#for i in $n; do
+#  echo "Esta creando el archivo numero"
+#  printf "%d\n " $i
+#  printf "%d %d %d \n" $i $t $cota | $(dirname $0)/generador #parametros del programa generador de archivos de entrada (n, t, cota) 
+#done 
 
 printf "%d \n" $iteraciones >> $(dirname $0)/tiempos-exp1.txt
 
