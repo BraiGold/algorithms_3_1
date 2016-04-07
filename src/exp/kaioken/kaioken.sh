@@ -3,7 +3,7 @@
 LC_NUMERIC="en_US.UTF-8"
 
 iteraciones=1
-n="5 10 15" 
+n="$(seq 10000 10000 300000)" 
 
 
 while getopts 'ha:' opt; do

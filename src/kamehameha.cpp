@@ -4,7 +4,23 @@
 #include <iostream>     // std::cout
 #include <list>
 #include <vector>
+#include <cstdio>
+#include <sys/time.h>
+
 using namespace std;
+
+timeval timeStart, timeEnd;
+
+void init_time()
+{
+    gettimeofday(&timeStart,NULL);
+}
+
+double get_time()
+{
+    gettimeofday(&timeEnd,NULL);
+    return (1000000*(timeEnd.tv_sec-timeStart.tv_sec)+(timeEnd.tv_usec-timeStart.tv_usec))/1000000.0;
+}
 
 vector<pair<pair<int,int>,pair<int,int> > > generarConjPares(std::vector<std::pair<int,int> > puntos);
 vector<pair<int,int> > generarConjSinLD(pair<pair<int,int>,pair<int,int> > par,std::vector<std::pair<int,int> > puntos);
@@ -90,7 +106,7 @@ vector<pair<int,int> > generarConjSinLD(pair<pair<int,int>,pair<int,int> > par,s
   return conjSinLD;
 }
 
-int main(){
+int main(int argc, char* argv[]){
   int n,a,b;
   cin >> n;
   vector<std::pair<int,int> > puntos;
@@ -103,48 +119,43 @@ int main(){
 
 
     vector<pair<pair<int,int>,pair<int,int> > > paresOptimos;
-//    pair<int,int> p1(0,0);
-  //  pair<int,int> p2(1,0);
-  //  pair<int,int> p3(1,1);
-//    pair<int,int> p4(2,5);
-  //  pair<int,int> p5(2,2);
-//    pair<int,int> p6(3,3);
-//    pair<int,int> p7(2,3);
-  //  pair<int,int> p8(4,5);
-  //  pair<int,int> p9(8,10);
-  //  pair<int,int> p10(16,20);
 
-  //  vector<pair<int,int> > puntos;
-  //  puntos.push_back(p1);
-  //  puntos.push_back(p2);
-  //  puntos.push_back(p3);
-  //  puntos.push_back(p4);
-  //  puntos.push_back(p5);
-  //  puntos.push_back(p6);
-  //  puntos.push_back(p7);
-  //  puntos.push_back(p8);
-  //  puntos.push_back(p9);
-  //  puntos.push_back(p10);
     vector<pair<int,int> > puntosCopia(puntos);
     vector<bool > puntosCopiaMascara(puntosCopia.size(),true);
+    bool pidieronTiempo = false; 
+    if (argc > 1) {
+      if (argv[1] == string("-t")) {
+        pidieronTiempo = true;
+      }
+    }
+    double tiempo;
+    init_time();
+
     int cantDisparos=kamehameha(puntos,paresOptimos);
+    tiempo = get_time();
+    if (!pidieronTiempo) {
+     
     std::cout << cantDisparos << std::endl;
     vector<int> matadosConEstePar;
     int cantLD;
 
-    for (int i = 0; i < paresOptimos.size(); i++) {
+      for (int i = 0; i < paresOptimos.size(); i++) {
     //  std::cerr << "antes de conjLD it:"<< i << std::endl;
-      cantLD=ConjLD(paresOptimos[i],puntosCopia,matadosConEstePar,puntosCopiaMascara);//cuenta los LD Y ademas arma una lista en matadosConEstePar
-      mostrarLinea(cantLD,matadosConEstePar);
-      matadosConEstePar.clear();
-    }
+        cantLD=ConjLD(paresOptimos[i],puntosCopia,matadosConEstePar,puntosCopiaMascara);//cuenta los LD Y ademas arma una lista en matadosConEstePar
+        mostrarLinea(cantLD,matadosConEstePar);
+        matadosConEstePar.clear();
+      }
 
+    } else {
+      printf("%.10f ", tiempo);
+    }
     //std::cerr << "cantidad de disparos: " << cantDisparos << std::endl;
     //::cerr << "fueron: " <<paresOptimos.size() << std::endl;
-
+    /*
     for (int i = 0; i < paresOptimos.size() ; i++) {
     //  std::cerr <<"[(" << paresOptimos[i].first.first<<";"<<paresOptimos[i].first.second<<")"<<"(" << paresOptimos[i].second.first<<";"<<paresOptimos[i].second.second<<")" <<"] " << std::endl;
     }
+    */
 }
 
 

@@ -24,13 +24,13 @@ while getopts 'ha:' opt; do
 done
 
 #genero archivos de entrada
- printf "%d %d \n" $n $cota $m $b | $(dirname $0)/generador #parametros del programa generador de archivos de entrada (n, t, cota) 
+printf "%d %d \n" $n $cota $m $b | $(dirname $0)/generador #parametros del programa generador de archivos de entrada (n, t, cota) 
 
 printf "%d \n" $iteraciones >> $(dirname $0)/tiempos-exp2.txt
 
-  printf "%d " 1 >> $(dirname $0)/tiempos-exp1.txt
+  printf "%d " 1 >> $(dirname $0)/tiempos-exp2.txt
   for h in $(seq 1 $iteraciones); do
-     $(dirname $0)/../../../kamehameha < $(dirname $0)/puntosAlineados.txt -t >> $(dirname $0)/tiempos-exp2.txt
+     $(dirname $0)/../../../kamehameha < $(dirname $0)/puntosAlineados-10.txt -t >> $(dirname $0)/tiempos-exp2.txt
   done
   printf "\n" >> $(dirname $0)/tiempos-exp2.txt
 
