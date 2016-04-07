@@ -1,7 +1,6 @@
 function [x, y, e, c] = leer_datos_float(file)
     data = fopen(file)
     c = fscanf(data, '%lu', 1);
-    disp(c);
     cant = c + 1;
     A = fscanf(data, '%f', [cant Inf]);
     A = A'; %aca esta bien la matriz
