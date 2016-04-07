@@ -24,6 +24,10 @@ int main() {
   	
 		fprintf(doc, "%d %d\n",n ,t);
 
+		time_t seconds;
+		time(&seconds);
+		srand((unsigned int) seconds);
+
 			//int randNum = rand()%(max-min + 1) + min;
 		x_anterior = rand() % (cota - n +1) + n; // entre n y cota
 		y_anterior = rand() % (cota - n +1) + 0; //entre 0 y cota-n
