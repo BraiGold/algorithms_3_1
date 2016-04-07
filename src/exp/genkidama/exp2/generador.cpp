@@ -2,8 +2,27 @@
 #include <stdio.h>      // printf fopen fclose fputs 
 #include <stdlib.h>     //
 #include <string>       //to_string
+#include <vector>
+#include <algorithm>    // std::sort
 
 using namespace std;
+
+bool EstaEnelVector(vector<int > vec, int n) {
+	int i = 0;
+	bool loEncontre = false;
+	while(i < vec.size() && !loEncontre) {
+		if(vec[i] == n){
+			loEncontre = true;
+		}
+		i++;
+	}
+	return loEncontre;
+}
+
+int random() {
+	return rand() % 1000 + (rand() % 1000) * 1000 + (rand() % 1000) * 1000000
+}
+
 
 int main() {
 	FILE * doc;
@@ -12,10 +31,12 @@ int main() {
 	cin >> n >> t >> cota;  // n < cota
 	
 	int x, x_anterior, y, y_anterior;
+	vector<int > randoms_x;
+	vector<int > randoms_y;
 
 
 	char filename[64];
-	sprintf(filename, "puntosRandom-%d.txt", t);
+	sprintf(filename, "puntosRandom-%d.txt", n);
 	
 
 	doc = fopen(filename,"w");
@@ -23,39 +44,50 @@ int main() {
 	if (doc!=NULL) {
   	
 		fprintf(doc, "%d %d\n",n ,t);
-
 		time_t seconds;
 		time(&seconds);
 		srand((unsigned int) seconds);
-
-			//int randNum = rand()%(max-min + 1) + min;
-		x_anterior = rand() % (cota - n +1) + n; // entre n y cota
-		y_anterior = rand() % (cota - n +1) + 0; //entre 0 y cota-n
-
-		fprintf(doc, "%d %d\n", x_anterior, y_anterior);
-
-  		int cuantosPtosFaltan = n - 1 ; 
-
-		for(int i=0; i<n-1; i++){
-			x = rand() % (x_anterior) + 0; //entre 0 y x_anterior - 1
-			while(x < cuantosPtosFaltan){
-			x = rand() % (x_anterior) + 0; //entre 0 y x_anterior - 1
-			}
-			y = rand() % ((cota - cuantosPtosFaltan) - (y_anterior + 1) +1) + (y_anterior + 1); // entre (y_anterior + 1) y (cota - cuantosPtosFaltan)
-			while(y < cota - cuantosPtosFaltan){
-			y = rand() % ((cota - cuantosPtosFaltan) - (y_anterior + 1) +1) + (y_anterior + 1); // entre (y_anterior + 1) y (cota - cuantosPtosFaltan)
-			}
 	
-			fprintf(doc, "%d %d\n", x, y);
+		int LOW = 0;
+		int HIGH = cota;
+		int x;
+		int y;
 
-			x_anterior = x;
-			y_anterior = y;
-			cuantosPtosFaltan--;
+		
+		for(int i = 0; i < n; i++){
+
+
+				//creo un nuevo x
+				x = random() % (HIGH - LOW + 1) + LOW;
+			
+				while(EstaEnelVector(randoms_x, x)){
+					x = random() % (HIGH - LOW + 1) + LOW;
+				}
+				randoms_x.push_back(x);
+
+				//creo un nuevo y
+				y = random() % (HIGH - LOW + 1) + LOW;
+			
+				while(EstaEnelVector(randoms_y, y)){
+					y = random() % (HIGH - LOW + 1) + LOW;
+				}
+				randoms_y.push_back(y);
 
 		}
 
-    	fclose(doc);
+		
+		sort(randoms_x.begin(), randoms_x.end()); //ordeno los x
+		reverse(randoms_x.begin(), randoms_x.end()); //doy vuelta los x
+		sort(randoms_y.begin(), randoms_y.end()); //ordeno los y
+
 	}
+
+	for (int i = 0; i < n; i++) {
+		fprintf(doc, "%d %d\n", randoms_x[i], randoms_y[i]);
+	}
+    	
+
+    fclose(doc);
 
 	return 0;
 }
