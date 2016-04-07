@@ -20,6 +20,10 @@ bool AlineadoConOtroEnelVector(vector<pair<int,int> > vec, pair<int, int> par){
 	return res;
 }
 
+int randombis() {
+	return rand() % 1000 + (rand() % 1000) * 1000 + (rand() % 1000) * 1000000;
+}
+
 int main() {
 	FILE * doc;
 	
@@ -50,9 +54,9 @@ int main() {
 		time_t seconds;
 		time(&seconds);
 		srand((unsigned int) seconds);
-		m = rand() % (2 - LOW + 1) + LOW;
-		b = rand() % (HIGH - LOW + 1) + LOW;
-		x1 = rand() % (HIGH - LOW + 1) + LOW;
+		m = randombis() % (2 - LOW + 1) + LOW;
+		b = randombis() % (HIGH - LOW + 1) + LOW;
+		x1 = randombis() % (HIGH - LOW + 1) + LOW;
 		y1 = x1 * m + b;
 
 		pair<int,int> p1(x1,y1);
@@ -66,18 +70,18 @@ int main() {
 		fprintf(doc, "%d %d\n", p2.first, p2.second);
 
 		for(int i = 0; i < n - 2; i++){
-			m = rand() % (2 - LOW + 1) + LOW;
-			b = rand() % (HIGH - LOW + 1) + LOW;
-			x1 = rand() % (HIGH - LOW + 1) + LOW;
+			m = randombis() % (2 - LOW + 1) + LOW;
+			b = randombis() % (HIGH - LOW + 1) + LOW;
+			x1 = randombis() % (HIGH - LOW + 1) + LOW;
 			y1 = x1 * m + b;
 	
 			pair<int,int> p1(x1,y1);
 			
 				while(AlineadoConOtroEnelVector(randoms, p1)){
-					m = rand() % (2 - LOW + 1) + LOW;
-					b = rand() % (HIGH - LOW + 1) + LOW;
+					m = randombis() % (2 - LOW + 1) + LOW;
+					b = randombis() % (HIGH - LOW + 1) + LOW;
 					cerr << b << endl;
-					x1 = rand() % (HIGH - LOW + 1) + LOW;
+					x1 = randombis() % (HIGH - LOW + 1) + LOW;
 					y1 = x1 * m + b;
 					p1.first = x1;
 					p1.second = y1;

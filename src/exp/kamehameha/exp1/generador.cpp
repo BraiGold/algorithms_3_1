@@ -19,6 +19,11 @@ bool EstaEnelVector(vector<pair<int,int> > vec, pair<int, int> par){
 	return loEncontre;
 }
 
+int randombis() {
+	return rand() % 1000 + (rand() % 1000) * 1000 + (rand() % 1000) * 1000000;
+}
+
+
 int main() {
 	FILE * doc;
 	
@@ -47,13 +52,13 @@ int main() {
 		srand((unsigned int) seconds);
 		for(int i = 0; i < n; i++){
 
-				x = rand() % (HIGH - LOW + 1) + LOW;
-				y = rand() % (HIGH - LOW + 1) + LOW;
+				x = randombis() % (HIGH - LOW + 1) + LOW;
+				y = randombis() % (HIGH - LOW + 1) + LOW;
 				pair<int,int> p(x,y);
 			
 				while(EstaEnelVector(randoms, p)){
-					x = rand() % (HIGH - LOW + 1) + LOW;
-					y = rand() % (HIGH - LOW + 1) + LOW;
+					x = randombis() % (HIGH - LOW + 1) + LOW;
+					y = randombis() % (HIGH - LOW + 1) + LOW;
 					p.first = x;
 					p.second = y;
 
