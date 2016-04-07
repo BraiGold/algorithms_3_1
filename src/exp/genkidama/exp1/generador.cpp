@@ -19,8 +19,8 @@ bool EstaEnelVector(vector<int > vec, int n) {
 	return loEncontre;
 }
 
-int random() {
-	return rand() % 1000 + (rand() % 1000) * 1000 + (rand() % 1000) * 1000000
+int randombis() {
+	return rand() % 1000 + (rand() % 1000) * 1000 + (rand() % 1000) * 1000000;
 }
 
 
@@ -30,7 +30,6 @@ int main() {
 	int n, t, cota;
 	cin >> n >> t >> cota;  // n < cota
 	
-	int x, x_anterior, y, y_anterior;
 	vector<int > randoms_x;
 	vector<int > randoms_y;
 
@@ -58,18 +57,18 @@ int main() {
 
 
 				//creo un nuevo x
-				x = random() % (HIGH - LOW + 1) + LOW;
+				x = randombis() % (HIGH - LOW + 1) + LOW;
 			
 				while(EstaEnelVector(randoms_x, x)){
-					x = random() % (HIGH - LOW + 1) + LOW;
+					x = randombis() % (HIGH - LOW + 1) + LOW;
 				}
 				randoms_x.push_back(x);
 
 				//creo un nuevo y
-				y = random() % (HIGH - LOW + 1) + LOW;
+				y = randombis() % (HIGH - LOW + 1) + LOW;
 			
 				while(EstaEnelVector(randoms_y, y)){
-					y = random() % (HIGH - LOW + 1) + LOW;
+					y = randombis() % (HIGH - LOW + 1) + LOW;
 				}
 				randoms_y.push_back(y);
 

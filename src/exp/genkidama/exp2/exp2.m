@@ -8,6 +8,7 @@ filetype='-dpng';
 figure;
 
 hold on;
+ylim([0.002 0.004]);
 %axis([tam_x_a(length(tam_x_a)),tam_x_a(1)]);%esto es para que el eje x sea del tamaño de la cantidad de datos y no haya bordes blancos ocupando espacio
 errorbar( t_x, tiempo_y, e);
 xlabel('Valor de t','FontSize',12);

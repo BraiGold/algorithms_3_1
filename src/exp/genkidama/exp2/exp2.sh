@@ -4,7 +4,9 @@ LC_NUMERIC="en_US.UTF-8"
 
 iteraciones=1
 n=200000 
-t="$(seq 1000 500 10000)" 
+min_t=1000
+salto_de_a=500
+max_t=10000
 cota="1000000"
 
 while getopts 'ha:' opt; do
@@ -23,15 +25,13 @@ done
 
 
 #genero archivos de entrada
-for i in $t; do
-  echo "Esta creando el archivo numero"
-  printf "%d\n " $i
-  printf "%d %d %d \n" $n $i $cota | $(dirname $0)/generador #parametros del programa generador de archivos de entrada (n, t, cota) 
-done 
+#printf "%d %d %d %d %d \n" $n $cota $min_t $salto_de_a $max_t | $(dirname $0)/generador #  cin >> n >> cota >> min_t >> salto_de_a >> max_t;  // n < cota
+
+
 
 printf "%d \n" $iteraciones >> $(dirname $0)/tiempos-exp2.txt
 
-for k in $t; do
+for k in $(seq $min_t $salto_de_a $max_t); do
   printf "%d " $k >> $(dirname $0)/tiempos-exp2.txt
   echo "Esta corriendo la instancia numero"
   printf "%d\n " $k

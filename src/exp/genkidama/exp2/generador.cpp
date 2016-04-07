@@ -19,75 +19,71 @@ bool EstaEnelVector(vector<int > vec, int n) {
 	return loEncontre;
 }
 
-int random() {
-	return rand() % 1000 + (rand() % 1000) * 1000 + (rand() % 1000) * 1000000
+int randombis() {
+	return rand() % 1000 + (rand() % 1000) * 1000 + (rand() % 1000) * 1000000;
 }
 
 
 int main() {
 	FILE * doc;
 	
+	int min_t = 1000;
+	int salto_de_a = 500;
+	int max_t = 10000;
+
 	int n, t, cota;
-	cin >> n >> t >> cota;  // n < cota
+	cin >> n >> cota >> min_t >> salto_de_a >> max_t;  // n < cota
+  	
+	time_t seconds;
+	time(&seconds);
+	srand((unsigned int) seconds);
 	
-	int x, x_anterior, y, y_anterior;
+	int x, y;
 	vector<int > randoms_x;
 	vector<int > randoms_y;
 
-
-	char filename[64];
-	sprintf(filename, "puntosRandom-%d.txt", n);
-	
-
-	doc = fopen(filename,"w");
-
-	if (doc!=NULL) {
-  	
-		fprintf(doc, "%d %d\n",n ,t);
-		time_t seconds;
-		time(&seconds);
-		srand((unsigned int) seconds);
-	
-		int LOW = 0;
-		int HIGH = cota;
-		int x;
-		int y;
+	int LOW = 0;
+	int HIGH = cota;
 
 		
-		for(int i = 0; i < n; i++){
-
+	for(int i = 0; i < n; i++){
 
 				//creo un nuevo x
-				x = random() % (HIGH - LOW + 1) + LOW;
+				x = randombis() % (HIGH - LOW + 1) + LOW;
 			
 				while(EstaEnelVector(randoms_x, x)){
-					x = random() % (HIGH - LOW + 1) + LOW;
+					x = randombis() % (HIGH - LOW + 1) + LOW;
 				}
 				randoms_x.push_back(x);
 
 				//creo un nuevo y
-				y = random() % (HIGH - LOW + 1) + LOW;
+				y = randombis() % (HIGH - LOW + 1) + LOW;
 			
 				while(EstaEnelVector(randoms_y, y)){
-					y = random() % (HIGH - LOW + 1) + LOW;
+					y = randombis() % (HIGH - LOW + 1) + LOW;
 				}
 				randoms_y.push_back(y);
 
-		}
+	}
 
 		
 		sort(randoms_x.begin(), randoms_x.end()); //ordeno los x
 		reverse(randoms_x.begin(), randoms_x.end()); //doy vuelta los x
 		sort(randoms_y.begin(), randoms_y.end()); //ordeno los y
 
+	for (t = min_t; t <= max_t; t = t + salto_de_a) { //para cada t, genero un nuevo archivo. Los puntos son siempre los mismos
+		char filename[64];
+		sprintf(filename, "puntosRandom-%d.txt", t);
+		doc = fopen(filename,"w");
+		if (doc!=NULL) {
+			fprintf(doc, "%d %d\n",n ,t);
+			for (int i = 0; i < n; i++) {
+				fprintf(doc, "%d %d\n", randoms_x[i], randoms_y[i]);
+			}
+    		fclose(doc);
+		}
 	}
 
-	for (int i = 0; i < n; i++) {
-		fprintf(doc, "%d %d\n", randoms_x[i], randoms_y[i]);
-	}
-    	
-
-    fclose(doc);
 
 	return 0;
 }
