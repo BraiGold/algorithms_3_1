@@ -87,9 +87,14 @@ Por ejemplo, para $n$=8, el ciclo número dos recorre como indican las flechas r
 
     \subsection{Experimentación}
 		El objetivo de este experimento fue extraer conclusiones acerca de la variación en el tiempo de cómputo requerido por el algoritmo para distintos valores de $n$, con el fin de determinar su complejidad. 
-		Para realizar las mediciones se  utilizaron las funciones provistas a tal efecto por la cátedra. Además, para evitar posibles errores en las mismas, cada una se repitió 7 veces, considerando luego el promedio entre los valores obtenidos. En este caso, se consideraron valores de $n$ entre 10000 y 300000.
+    Para lograrlo, se graficó la curva $n \times log_{2}n / 13000000$ y se la comparó con las mediciones obtenidas al ejecutar el programa.
 
-    Para evaluar la complejidad del algoritmo, se graficó la curva $n \times log_{2}n / 13000000$.
+    \subsubsection*{Datos de entrada}
+    La cantidad guerreros tomados fueron  desde 10000 hasta 300000 de 10000 en 10000.
+    El archivo necesario para ejecutar el experimento se encuentra en la carpeta exp/kaioken con nombre kaioken.sh. 
+		Para realizar las mediciones se  utilizaron las funciones provistas a tal efecto por la cátedra. Además, para evitar posibles errores en las mismas, cada una se repitió 7 veces, considerando luego el promedio entre los valores obtenidos. 
+
+
 
       \includegraphics[height=11cm]{graficos/kaioken-exp.png}
 
