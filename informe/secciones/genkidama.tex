@@ -1,8 +1,17 @@
 \section{Genkidama}
 
 	\subsection{Introducción}
-
-	
+    El problema a resolver trata de,dado un T(luego explicaremos), intentar "matar"  de manera optima(menor cantidad de disparos) enemigos(puntos en un plano $\mathbb{N}^{2}$) que siguen un invariante particular:\\
+-los puntos  $(x_i,y_i)\textrm{cumplen} \quad i>j \Rightarrow x_i > x_j \wedge y_i < y_j$\\
+Mas informalmente, se ordenan de derecha a izquierda y de abajo hacia arriba.
+\\
+\\
+Donde el termino "matar" se define de la siguiente manera:
+$p_i=(x_i,y_i) \textrm{ mata a } p_j=(x_j,y_j) \textrm{ si y solo si: }$
+$x_i+T \geq x_j \wedge y_i+T \geq y_j$
+\\
+\\
+Es inmediato encontrar un algoritmo cuadratico que resuelva este problema, el dasafio entonces esta en realizar uno de complejidad lineal.
     \subsection{Desarrollo}
     	
     	Para demostrar que este algoritmo resuelve el problema de manera eficiente utilizaremos dos lemas:
@@ -122,9 +131,13 @@
 
 
     \subsection{Complejidad}
-
-
-    \subsection{Código}
+    Se cumple la complejidad pedida de $\mathcal{O}(N)$ pues,   basicamente el algoritmo consta de 3 partes:\\
+    (1) La funcion que ejecuta "masLejanoQueMataAl", esta dado un indice i (que siempre sera el primero de los que aun estan vivos) dice cual es el punto  de mayor indice(digamos j) que mata a i. Esta funcion tarda $\mathcal{O}(j)$ pues son j consultas de "matasAl" y otras operaciones $\mathcal{O}(1)$ , como ya dijimos siendo j el ultimo(de indice mayor) que mata a i.\\
+ Asi procedo a la parte (2) que es la funcion "masLejanoQueMata" que se le dice a quien se matara (siguiendo el nombre del punto anterior se le diria: j) y esta funcion devolvera un indice k siendo el ultimo que muere disparando a j y tardara $\mathcal{O}(k-j)$ pues recorre las posiciones entre j y k realizando operaciones $\mathcal{O}(1)$.\\
+ Observamos que la complejidad de (1) y (2) en conjunto es: 
+ $\mathcal{O}(j) + \mathcal{O}(k-j) =\mathcal{O}(k)  $\\
+(3)Por ultimo esta secuencia de operaciones de ejecuta tantas veces como sea necesaria para muera todos los puntos, empezando desde el k de la repeticion anterior. Es decir se ejecutaran digamos $h \gets \{1..t..h\}$ iteraciones de complejidad  $\mathcal{O}(k_t)$ donde no es estrictamente importante cuanto vale cada $k_t$ pero si saber que $\sum_{t=1}^{h} k_t = n$ entonces la complejidad de ejecutar h veces este grupo de funciones de complejidad $ \mathcal{O}(k_t) $ con k como fueron descriptas previamente, sera del orden $ \mathcal{O}(\sum_{t=1}^{h} k_t)=\mathcal{O}(N) $.
+    
 
 
     \subsection{Experimentación}
