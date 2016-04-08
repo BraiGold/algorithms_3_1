@@ -121,70 +121,6 @@
 \def\new{\textbf{\&}}
 \def\NULL{\textrm{NULL}}
 
-% Operaciones básicas para algoritmos
-\SetKwFunction{copiar}{Copiar}
-\SetKwFunction{delete}{delete}
-\SetKwFunction{crearArr}{CrearArreglo}
-
-\SetKwFunction{maximo}{max}
-
-\SetKwFunction{vacio}{Vacio}
-\SetKwFunction{vacia}{Vacia}
-
-\SetKwFunction{esVacio}{EsVacio?}
-\SetKwFunction{esVacia}{EsVacia?}
-
-\SetKwFunction{prim}{Primero}
-\SetKwFunction{ult}{Ultimo}
-\SetKwFunction{comienzo}{Comienzo}
-\SetKwFunction{fin}{Fin}
-\SetKwFunction{esta}{Esta?}
-\SetKwFunction{longitud}{Longitud}
-
-\SetKwFunction{pert}{Pertenece}
-\SetKwFunction{ag}{Agregar}
-\SetKwFunction{agRap}{AgregarRapido}
-\SetKwFunction{agAtras}{AgregarAtras}
-\SetKwFunction{agAdelante}{AgregarAdelante}
-\SetKwFunction{card}{Cardinal}
-\SetKwFunction{union}{Union}
-
-\SetKwFunction{definido}{Definido}
-\SetKwFunction{definir}{Definir}
-\SetKwFunction{defRap}{DefinirRapido}
-\SetKwFunction{isDef}{Definido?}
-\SetKwFunction{signif}{Significado}
-\SetKwFunction{obtener}{Obtener}
-\SetKwFunction{borrar}{Borrar}
-
-\SetKwFunction{crearIt}{CrearIt}
-\SetKwFunction{haySig}{HaySiguiente?}
-\SetKwFunction{sig}{Siguiente}
-\SetKwFunction{avanzar}{Avanzar}
-\SetKwFunction{sigClave}{SiguienteClave}
-\SetKwFunction{sigSignif}{SiguienteSignificado}
-\SetKwFunction{elimSig}{EliminarSiguiente}
-
-\SetKwFunction{encolar}{Encolar}
-\SetKwFunction{desencolar}{Desencolar}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Bibliografía
-%\usepackage{biblatex}
-%\addbibresource{referencias.bib}
-
-% Comandos personalizados
-%\let\strong\textbf
-%\renewcommand{\appendixtocname}{Apéndices}
-%\renewcommand{\appendixpagename}{Apéndices}
-%\theoremstyle{plain}
-%    \newtheorem{prop}{Proposición}
-%    \newtheorem{lema}{Lema}
-%\theoremstyle{remark}
-%    \newtheorem{obs}{Observación}
-%\setlength{\parskip}{.3em}
-%\newcommand{\acr}[1]{\textsc{\lowercase{#1}}} % Acrónimos
 
 % Encabezado
 \lhead{Algoritmos y estructuras de datos III}
@@ -195,6 +131,21 @@
 % \rfoot{UBA}
 
 \begin{document}
+
+\lstset{language=c++}
+\lstdefinestyle{customc}{
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  frame=L,
+  xleftmargin=\parindent,
+  language=C,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+}
 
 % Datos de carátula
 \materia{Algoritmos y estructuras de datos III}
@@ -221,6 +172,8 @@
 \input{secciones/genkidama}
 \clearpage
 \input{secciones/kamehameha}
+\clearpage
+\input{secciones/apendice}
 \clearpage
 
 \end{document}

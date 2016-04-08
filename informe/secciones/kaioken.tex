@@ -49,6 +49,33 @@
 
     \subsection{Desarrollo}
 
+      \subsubsection*{Descripción}\;
+
+
+          \begin{algoritmo}{kaioken}{int n}{int}
+
+  \tipo{int} $cantMinPeleas \gets \lceil log_{2}(n) \rceil$ \com*{O(1)}
+  \tipo{int} $equipo$ \com*{O(1)}
+
+  \For(\com*{O($log_{2}(n)$)}){($i$ = 1; $i \leq cantMinPeleas$; $i$++)}{
+    $equipo \gets 1$ \com*{O(1)}
+    \For(\com*{O($n/2^{i-1}$)}){($h$ = 1; $h \leq n$; $h$ = $h + 2^{i-1}$)}{
+      \For(\com*{O($2^{i-1}$)}){($k$ = 0; ($k < 2^{i-1}$) $\&$ ($h+k \leq n$); $k$++)}{
+        escribir($equipo$) \com*{O(1)}
+      }
+        \eIf(\com*[f]{O(1)}){$equipo == 1$}{
+          $equipo \gets 2$ \;
+        }{
+          $equipo \gets 1$ \;
+        }
+    }
+  }
+
+
+\end{algoritmo}
+      \subsubsection*{Correctitud}\;
+
+
         Para empezar, vamos a probar que para todo $n$, la menor cantidad de peleas necesarias es $\lceil log_{2}(n) \rceil$ por inducción en $N$.
 
         Caso Base: N = 1
@@ -85,6 +112,13 @@
         Por hipótesis inductiva, podemos hacer pelear cada equipo entre sí en como mínimo $\lceil log_{2}((N-1)/2+1) \rceil$ $=$ $\lceil log_{2}((N+1)/2) \rceil$. Como $N$ es impar, $\lceil log_{2}((N+1)/2) \rceil$ es igual a $\lceil log_{2}(N/2) \rceil$. De esa manera, nos vuelve a quedar como cantidad de peleas total $\lceil log_{2}(N) \rceil$. \\
 
         Un corte de tamaños distinto a éste genera el mismo resultado que el caso par explicado anteriormente. \;
+
+        De esta manera, en la $K$ pelea, se alterna $2k$ veces entre equipo $1$ y $2$. 
+
+        Este armado cumple las tres condiciones:
+            Todas las listas tienen tamaño $n$.
+            Cada elemento está compuesto por un uno o un dos.
+            Para todo elemento, si $i$! $\equiv$ $j$($2^{k}$) con $1$ $\leq$ $k$ $\leq$ $\lceil log_{2}(N) \rceil$ entonces $i$ y $j$ son de distinto equipo en la $k$ pelea.
 
 
 

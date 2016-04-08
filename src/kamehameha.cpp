@@ -25,7 +25,7 @@ double get_time()
 vector<pair<pair<int,int>,pair<int,int> > > generarConjPares(std::vector<std::pair<int,int> > puntos);
 vector<pair<int,int> > generarConjSinLD(pair<pair<int,int>,pair<int,int> > par,std::vector<std::pair<int,int> > puntos);
 vector<pair<pair<int,int>,pair<int,int> > > mejoresPares(vector<pair<int,int> > puntos);
-int conjMasChico (vector<vector<pair<pair<int,int>,pair<int,int> > > > posiblesConvinaciones);
+int conjMasChico (vector<vector<pair<pair<int,int>,pair<int,int> > > > posiblesCombinaciones);
 int ConjLD(pair<pair<int,int>,pair<int,int> >  par,vector<pair<int,int> >& puntosCopia,vector<int>& matadosConEstePar,vector<bool>& puntosCopiaMascara);
 void mostrarLinea(int cantLD,vector<int>& matadosConEstePar);
 
@@ -52,17 +52,17 @@ vector<pair<pair<int,int>,pair<int,int> > > mejoresPares(vector<pair<int,int> > 
     }else{
       vector<pair<pair<int,int>,pair<int,int> > > pares = generarConjPares(puntos);//genera conj Pares que pasen por el ultimo osea por puntos.back()
 
-      vector<vector<pair<pair<int,int>,pair<int,int> > > >  posiblesConvinaciones(pares.size(),pares);//creo un conj de conj de pares con tamaño pares.size y lo lleno con que no importa tipo pares
+      vector<vector<pair<pair<int,int>,pair<int,int> > > >  posiblesCombinaciones(pares.size(),pares);//creo un conj de conj de pares con tamaño pares.size y lo lleno con que no importa tipo pares
 
       puntos.pop_back();  //saco el ultimo para recursivisar sin este
       for (int i = 0; i < pares.size(); i++) {
 
-        posiblesConvinaciones[i]=mejoresPares(generarConjSinLD(pares[i],puntos));
-        posiblesConvinaciones[i].push_back(pares[i]);
+        posiblesCombinaciones[i]=mejoresPares(generarConjSinLD(pares[i],puntos));
+        posiblesCombinaciones[i].push_back(pares[i]);
       }
 
-      int mejorPar= conjMasChico(posiblesConvinaciones);
-      return posiblesConvinaciones[mejorPar];
+      int mejorPar= conjMasChico(posiblesCombinaciones);
+      return posiblesCombinaciones[mejorPar];
     }
   }
 }
@@ -79,11 +79,11 @@ vector<pair<pair<int,int>,pair<int,int> > > generarConjPares(std::vector<std::pa
   return pares;
 }
 
-int conjMasChico (vector<vector<pair<pair<int,int>,pair<int,int> > > > posiblesConvinaciones){
+int conjMasChico (vector<vector<pair<pair<int,int>,pair<int,int> > > > posiblesCombinaciones){
   int    min=0;
 
-  for (int i = 0; i < posiblesConvinaciones.size(); i++) {
-    if (posiblesConvinaciones[i].size()<posiblesConvinaciones[min].size())
+  for (int i = 0; i < posiblesCombinaciones.size(); i++) {
+    if (posiblesCombinaciones[i].size()<posiblesCombinaciones[min].size())
       min=i;
 
   }

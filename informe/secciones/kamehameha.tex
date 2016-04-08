@@ -74,6 +74,9 @@
 			Para generar el primer caso se utilizó el generador.cpp y para el segundo el generador2.cpp que se encuentran en la carpeta exp/kamehameha/exp2. Para correrlos se utilizó el exp2.sh que se encuentra en la misma carpeta.\;
 			Con el fin de acercarse a los valores reales y descartar posibles falsos resultados, se ejecuta la resolución del problema para cada uno de los tamaños de equipo siete veces y se calcula el promedio de los tiempos medidos.\;
 
+      	\includegraphics[height=2cm]{graficos/tabla.png}
+
+
 		\subsubsection*{Conclusiones}\;
 			Como se puede ver en la tabla, el tiempo de ejecución cuando los puntos se encuentran alineados es mucho menos que cuando solo puedo matar de a dos guerreros enemigos. Esto se debe a que el algoritmo toma todos los posibles pares de guerreros y para cada uno de ellos se fija como armar mas pares sin tener en cuenta los soldados que quedan alineados con la recta que une al primer par. En el caso que estén todos alineados la complejidad bajará a $\mathcal{O}(N)$ ya que para ningún posible par que se pueda armar en un primer momento quedan mas guerreros que no se encuentren alineados con el primer par. Por lo que solo tomará posibles pares de guerreros y finalizará la ejecución. En cambio cuando están muy desalineados, por cada par inicial quedan exactamente $n - 2$ guerreros para reordenar en pares, generando así una complejidad de $\mathcal{O}(N^{N+2})$.
 

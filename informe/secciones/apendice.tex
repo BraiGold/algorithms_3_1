@@ -1,0 +1,157 @@
+
+\section{Código}
+\subsection{KaioKen}
+
+\begin{lstlisting}
+void kaioken (int cantGuerreros) {
+  int cantMinPeleas = ceil(log2(cantGuerreros));
+  int equipo;
+  cout << cantMinPeleas << endl;
+  for (int i = 1; i <= cantMinPeleas; i++) { 
+    equipo = 1; 
+    for (int h = 1; h <= cantGuerreros; h = h + pow(2, i-1)) {
+        for (int k = 0; k <  pow(2,i-1) && (h + k <= cantGuerreros); k++ ) {
+           cout << equipo << " ";
+        }
+        if (equipo == 1) {
+            equipo = 2;
+        } else {
+            equipo = 1;
+        }
+    }
+    cout << endl;
+  }
+}
+\end{lstlisting}
+
+\subsection{Genkidama}
+
+\begin{lstlisting}
+int genkidama (int N,int T,vector<pair<int,int> >& enemigos,
+	list<int>* DisparosEfectuados){
+  int cantGenkidamas=0;
+  int i=0;
+
+  while (i<N) {
+    int aEsteLeDisparo=masLejanoQueMataAl(i,N,T,enemigos);
+    i = masLejanoQueMata(aEsteLeDisparo,N,T,enemigos) + 1;
+    DisparosEfectuados->push_back(aEsteLeDisparo);
+    cantGenkidamas++;
+  }
+  return cantGenkidamas;
+}
+
+int masLejanoQueMataAl(int i,int N, int T,vector<pair<int,int> >& enemigos){
+    int j=i+1;
+    while(j<enemigos.size() && mataAl(j,i,N,T,enemigos)){
+      j++;
+    }
+    return j-1;
+}
+
+int masLejanoQueMata(int aEsteLeDisparo, int N,int T,
+ vector<pair<int,int> >& enemigos){
+  int j=aEsteLeDisparo+1;
+  while(j<enemigos.size() && mataAl(aEsteLeDisparo,j,N,T,enemigos)){
+    j++;
+  }
+  return j-1;
+
+}
+
+bool mataAl(int i,int j,int N,int T,vector<pair<int,int> >& enemigos){
+  if(enemigos[i].first + T >= enemigos[j].first && 
+  	enemigos[i].second + T >= enemigos[j].second )
+    return true;
+  else
+    return false;
+}
+\end{lstlisting}
+
+\subsection{Kamehameha}
+
+\begin{lstlisting}
+int kamehameha(vector<pair<int,int> > puntos,
+	vector<pair<pair<int,int>,pair<int,int> > >& paresOptimos){
+   paresOptimos = mejoresPares(puntos);
+
+    return paresOptimos.size();
+}
+
+vector<pair<pair<int,int>,pair<int,int>>>
+ mejoresPares(vector<pair<int,int>> puntos){
+  if(puntos.size()==0){
+    vector<pair<pair<int,int>,pair<int,int> > > res;
+    return res;
+  }
+  if(puntos.size()==1){
+    pair<pair<int,int>,pair<int,int> > par(puntos[0],puntos[0]);
+    vector<pair<pair<int,int>,pair<int,int> > > res(1,par);
+    return res;
+  }else{
+    if(puntos.size()==2){
+      pair<pair<int,int>,pair<int,int> > par(puntos[0],puntos[1]);
+      vector<pair<pair<int,int>,pair<int,int> > > res(1,par);
+      return res;
+    }else{
+      vector<pair<pair<int,int>,pair<int,int>>> 
+         pares = generarConjPares(puntos);
+
+      vector<vector<pair<pair<int,int>,pair<int,int>>>> 
+       posiblesCombinaciones(pares.size(),pares);
+
+      puntos.pop_back();  
+      for (int i = 0; i < pares.size(); i++) {
+
+       posiblesCombinaciones[i]=mejoresPares(generarConjSinLD(pares[i],puntos));
+       posiblesCombinaciones[i].push_back(pares[i]);
+      }
+
+      int mejorPar= conjMasChico(posiblesCombinaciones);
+      return posiblesCombinaciones[mejorPar];
+    }
+  }
+}
+
+vector<pair<pair<int,int>,pair<int,int>>> 
+  generarConjPares(std::vector<std::pair<int,int> > puntos){
+  vector<pair<pair<int,int>,pair<int,int>>> pares;
+  pair<pair<int,int>,pair<int,int> > par(puntos.back(),puntos.back());
+
+  for (int i = 0; i < puntos.size()-1; i++) {
+    par.second.first=puntos[i].first;
+    par.second.second=puntos[i].second;
+    pares.push_back(par);
+  }
+  return pares;
+}
+
+int conjMasChico(vector<vector<pair<pair<int,int>,
+	pair<int,int>>>> posiblesCombinaciones){
+  int    min=0;
+
+  for (int i = 0; i < posiblesCombinaciones.size(); i++) {
+    if (posiblesCombinaciones[i].size()<posiblesCombinaciones[min].size())
+      min=i;
+
+  }
+
+  return min;
+}
+
+vector<pair<int,int> > generarConjSinLD
+(pair<pair<int,int>,pair<int,int> > par,vector<pair<int,int> > puntos){
+  vector<pair<int,int> > conjSinLD;
+  if(par.first==par.second){return puntos; }
+
+  for (int i = 0; i < puntos.size(); i++) {
+    if ((par.first.first-puntos[i].first)*(par.first.second-par.second.second)
+    	!=(par.first.first-par.second.first)*(par.first.second-puntos[i].second)){
+      conjSinLD.push_back(puntos[i]);
+
+    }
+  }
+  return conjSinLD;
+}
+
+\end{lstlisting}
