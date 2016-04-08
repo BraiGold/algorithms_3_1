@@ -92,7 +92,7 @@
 		Ésta función recibe por parámetro el valor del $T$,  un vector de puntos en el plano que representa los guerreros enemigos y un entero que indica la posición de un soldado en el vector.
 		La función devuelve la posición del ultimo guerrero al cual puedo disarale pero que siga matando al enemigo que ocupa la posicion pasada por parametro.\\ 
 
-	\begin{algoritmo}{masLejanoQueMataAl}{\In{i}{int},\In{N}{int}, \In{T}{int}, \Inout{enemigos}{vector(pair(int,int))}}{int}
+	\begin{algoritmo}{masLejanoQueMataAl}{\In{i}{int}, \In{N}{int}, \In{T}{int}, \Inout{enemigos}{vector(pair(int,int))}}{int}
 		j = i + 1 \;
 		\While{si le disparo al que esta en la posición $j$ sigue matando al que esta en la posición $i$}{
     		j++ \;
@@ -105,7 +105,7 @@
 		Genkidama:
 		Ésta función recibe por parámetro el valor del $T$,  un vector de puntos en el plano que representa los guerreros enemigos y su longitud, y un puntero a una lista de enteros donde se guardarán los guerreros a los cuales será necesario lanzar genkidamas. Devolverá tambien la cantidad de disparos realizados. \\
 
-	\begin{algoritmo}{genkidama}{\In{N}{int}, \In{T}{int}, \In{enemigos}{vector(pair(int,int))$&$}, \Inout{DisparosEfectuados}{list(int)}{int}
+	\begin{algoritmo}{genkidama}{\In{N}{int}, \In{T}{int}, \In{enemigos}{vector(pair(int,int))}, \Inout{DisparosEfectuados}{list(int)}}{int}
 
 		int cantGenkidamas=0;
   		int i=0;
@@ -131,49 +131,58 @@
     \subsection{Experimentación}
 
 
-    	\subsubsection*{Experimento 1}\;
-			En este experimento se analizará la variación del tiempo de ejecución del algoritmo cuando varía la cantidad de guerreros enemigos dejando fijo el parámetro T. Para ello se generarán diferentes archivos con las coordenadas de los enemigos, uno por cada tamaño de bando contrario. Las coordenadas de los soldados serán aleatorias tomando una cota como máximo valor posible para las variables x e y. Luego pasando esos archivos como parámetro de entrada al problema de genkidama, se medirán los tiempos de ejecución. \;
+    	\subsubsection*{Experimento 1}
+			En este experimento se analizará la variación del tiempo de ejecución del algoritmo cuando varía la cantidad de guerreros enemigos dejando fijo el parámetro T. Para ello se generarán diferentes archivos con las coordenadas de los enemigos, uno por cada tamaño de bando contrario. Las coordenadas de los soldados serán aleatorias tomando una cota como máximo valor posible para las variables x e y. Luego pasando esos archivos como parámetro de entrada al problema de genkidama, se medirán los tiempos de ejecución. \\
 
-		\subsubsection*{Datos de entrada}\;
-			Los tamaños del bando enemigo tomados fueron  desde 50 hasta 1000 de 50 en 50. \;
-			El valor de T utilizado fue 50.\;
-			Para generarlos se utilizó el generador.cpp que se encuentra en la carpeta exp/genkidama/exp1\;
-			Para correrlo se utilizó el exp1.sh \;
-			Con el fin de acercarse a los valores reales y descartar posibles falsos resultados, se ejecuta la resolución del problema para cada uno de los tamaños de equipo siete veces y se calcula el promedio de los tiempos medidos.\;
+		\subsubsection*{Datos de entrada}
+			Los tamaños del bando enemigo tomados fueron  desde 50 hasta 1000 de 50 en 50. 
+			El valor de T utilizado fue 50.
+			Para generarlos se utilizó el generador.cpp que se encuentra en la carpeta exp/genkidama/exp1.
+			Para correrlo se utilizó el exp1.sh.
+			Con el fin de acercarse a los valores reales y descartar posibles falsos resultados, se ejecuta la resolución del problema para cada uno de los tamaños de equipo siete veces y se calcula el promedio de los tiempos medidos.
 
-    	\subsubsection*{Conclusiones}\;
-			Como se puede observar en el gráfico, el tiempo de ejecución aumenta de manera lineal con respecto a la cantidad de guerreros enemigos. Esto es así ya que el algoritmo recorre todos los puntos sin importar la distancia que haya entre ellos y la cantidad de disparos a realizar. Por ello podemos asegurar que la complejidad es de o(N).\;
-			\;
+      	\includegraphics[height=11cm]{graficos/genkidama-exp1.png}
 
 
-		\subsubsection*{Experimento 2}\;
-			En este experimento vamos a observar como varia el tiempo de ejecución para diferentes valores del parámetro T dejando constante la cantidad de guerreros enemigos.\;
+    	\subsubsection*{Conclusiones}
+			Como se puede observar en el gráfico, el tiempo de ejecución aumenta de manera lineal con respecto a la cantidad de guerreros enemigos. Esto es así ya que el algoritmo recorre todos los puntos sin importar la distancia que haya entre ellos y la cantidad de disparos a realizar. Por ello podemos asegurar que la complejidad es de o(N).
+			\\
 
-		\subsubsection*{Datos de entrada}\;
 
-		Los valores de T utilizados fueron 50 70 80 90 100 120 130 140 150 170 190 200.\;
-		La cantidad de guerreros en el equipo contrario utilizada fue 1000
-		Para generarlos se utilizó el generador.cpp que se encuentra en la carpeta exp/genkidama/exp2\;
-		Para correrlo se utilizó el exp2.sh \;
-		Con el fin de acercarse a los valores reales y descartar posibles falsos resultados, se ejecuta la resolución del problema para cada uno de los valores de T siete veces y se calcula el promedio de los tiempos medidos.\;
+		\subsubsection*{Experimento 2}
+			En este experimento vamos a observar como varia el tiempo de ejecución para diferentes valores del parámetro T dejando constante la cantidad de guerreros enemigos.
+
+		\subsubsection*{Datos de entrada}
+
+		Los valores de T utilizados fueron 50 70 80 90 100 120 130 140 150 170 190 200.
+		La cantidad de guerreros en el equipo contrario utilizada fue 1000.
+		Para generarlos se utilizó el generador.cpp que se encuentra en la carpeta exp/genkidama/exp2.
+		Para correrlo se utilizó el exp2.sh.
+		Con el fin de acercarse a los valores reales y descartar posibles falsos resultados, se ejecuta la resolución del problema para cada uno de los valores de T siete veces y se calcula el promedio de los tiempos medidos.
+
+      	\includegraphics[height=11cm]{graficos/genkidama-exp2.png}
+
     	
-    	\subsubsection*{Conclusiones}\;
+    	\subsubsection*{Conclusiones}
 
-		Como se puede observar,las variaciones en el tiempo de ejeucion para cada T son despreciables por lo tanto se puede decir que no importa como varia el T, el tiempo que tarda en ejecutar el algoritmo es el mismo cuando la cantidad de puntos no varia.\;
+		Como se puede observar,las variaciones en el tiempo de ejeucion para cada T son despreciables por lo tanto se puede decir que no importa como varia el T, el tiempo que tarda en ejecutar el algoritmo es el mismo cuando la cantidad de puntos no varia.
 		\;
 
-    	\subsubsection*{Experimento 3}\;
+    	\subsubsection*{Experimento 3}
 
-		En este experimento vamos a observar como varia el tiempo de ejecución del algoritmo para casos bordes. En el primero tomaremos guerreros que se encuentren a muy poca distancia  unos de otros y en el segundo los enemigos estarán separados por grandes distancias, dejando siempre constante la cantidad de soldados. Luego mediremos los tiempos de ejecución del algoritmo genkidama para ambos casos tomando un valor de T grande y luego uno chico.\;
+		En este experimento vamos a observar como varia el tiempo de ejecución del algoritmo para casos bordes. En el primero tomaremos guerreros que se encuentren a muy poca distancia  unos de otros y en el segundo los enemigos estarán separados por grandes distancias, dejando siempre constante la cantidad de soldados. Luego mediremos los tiempos de ejecución del algoritmo genkidama para ambos casos tomando un valor de T grande y luego uno chico.
 		
-		\subsubsection*{Datos de entrada}\;
+		\subsubsection*{Datos de entrada}
 
 		Los valores de T utilizados fueron 4 y 50.
 		La cantidad de guerreros en el equipo contrario utilizada fue 1000.
 		En el primero las distancias eran de 2 entre soldados y en el segundo de 50.
 		Para generarlos se utilizó el generadorJuntos.cpp y el generadorSeparados.cpp  que se encuentran en la carpeta exp/genkidama/exp3.
-		Para correrlo se utilizó el exp3.sh 
-		Con el fin de acercarse a los valores reales y descartar posibles falsos resultados, se ejecuta la resolución del problema para cada uno de los valores de T siete veces y se calcula el promedio de los tiempos medidos.\;
+		Para correrlo se utilizó el exp3.sh. 
+		Con el fin de acercarse a los valores reales y descartar posibles falsos resultados, se ejecuta la resolución del problema para cada uno de los valores de T siete veces y se calcula el promedio de los tiempos medidos.\\
+
+      	\includegraphics[height=11cm]{graficos/genkidama-exp3.png}
+
 
     	\subsubsection*{Conclusiones}\;
 
