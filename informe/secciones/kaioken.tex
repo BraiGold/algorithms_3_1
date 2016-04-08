@@ -48,8 +48,21 @@
 
 
     \subsection{Desarrollo}
-
-        Para empezar, vamos a probar que para todo $n$, la menor cantidad de peleas necesarias es $\lceil log_{2}(n) \rceil$ por inducción en $N$.
+	La idea del algoritmo es dividir a los peleadores de manera tal que la cantidad de peleas sea $\lceil log_{2}(n) \rceil$ y luego probaremos que esa es la cantidad optima de peleas.\\
+   Para esto lo que hara el algoritmo sera hacer pelear inductivamente( sobre la variable i) vectores de a lo sumo $2^{i}$ peleadores y hacerlos pelear todos contra todos(observamos que como el caso de que no sea una potencia de 2 la entrada no afecta a la cantidad de peleas, como probaremos despues,pues $\lceil log_{2}(n) \rceil=log_{2}(2^k)$ con k la potencia de 2 mas chica mayor a n , ni tampoco afecta de nigun modo a la complejidad, porque siempre existe dicho k y es  a lo sumo el doble del numero menos uno, podemos entonces  explicar el algoritmo basado en entradas de a lo sumo$2^{i}$elementos).\\
+  La idea del codigo seria entonces la siguiente:\\
+  \\
+Caso base:\\
+   -para i=1, hay una unica pelea pues si tenemos$2^{i}=2$ elementos separo al vector a la mitad y pelean todos contra todos (V[0] vs V[1]).
+   observamos que entonces pelearon todos contra todos en $log_2(2^{i}i)=i$ peleas.\\
+   \\
+Paso recursivo:\\
+  -Tomamos el vector vector de $2^{i}$ peleadores, y lo partimos en 2 llamando recursivamente con 2 vectores de $2^{i-1}$ ambos los puedo hacer pelear todos contra todos en tan solo $log_2(2^{i-1})=i-1$ y  de forma que les es indistinta la presencia de los otros $2^{i-1}$ peleadores, asi que en $i-1$ peleas pelearon todos contra todos en los 2 subvectores en sus respectivas llamadas recursivas. faltaria solo agregar una pelea entre que pelean todos los de una mitad contra la otra y tengo entonces una lista de peleas de todos contra todos.
+\\
+\\
+Se observa entonces que pelearon todos contra todos en $log_2(2^{i-1})=i$ peleas que por la aclaracion antes enunciada se trasladaria a que un vector de N peladores pelearia en $\lceil log_{2}(n) \rceil$, resta solo ver para confirmar la correctitud del algoritmo que $\lceil log_{2}(n) \rceil$, es la minima cantidad de pelas requeridas.
+\\
+Para terminar entonces, vamos a probar que para todo $n$, la menor cantidad de peleas necesarias es $\lceil log_{2}(n) \rceil$ por inducción en $N$.
 
         Caso Base: N = 1
         Un solo guerrero necesita $0$ peleas para haber peleado con todos los demás, $\lceil log_{2}(1) \rceil$ = $0$.
