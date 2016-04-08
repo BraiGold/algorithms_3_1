@@ -14,7 +14,6 @@ primero = enemigos_x(1);
 
 
 eje_x = primero:ultimo;
-disp(eje_x);
 aux = eje_x+2;
 pow = power(eje_x,aux);
 eje_y = pow;
