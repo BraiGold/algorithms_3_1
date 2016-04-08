@@ -76,6 +76,11 @@
 
 El segundo ciclo junto con el tercer ciclo tienen complejidad O($n$), ya que se multiplica O($n/2^{i-1}$) por O($2^{i-1}$). Entre los dos ciclos se recorren todos los guerreros una vez. El segundo recorre por grupos de guerreros que van a pertenecer al mismo equipo y el segundo de ellos le asigna a cada guerrero de un grupo el número de equipo correspondiente. 
 
+Por ejemplo, para $n$=8, el ciclo número dos recorre como indican las flechas rojas para la pelea 1, 2 y 3 respectivamente. El tercer ciclo, avanza por los enemigos entre las flechas rojas. Se puede observar que el vector se recorre una sola vez para cada pelea. 
+
+
+\includegraphics[height=4cm]{graficos/ciclo.png}
+
 
     \subsection{Código}
 
