@@ -16,8 +16,8 @@ primero = enemigos_x(1);
 eje_x = primero:ultimo;
 disp(eje_x);
 aux = eje_x+2;
-mul = times(eje_x,aux);
-eje_y = mul;
+pow = power(eje_x,aux);
+eje_y = pow;
 
 
 hold on;
