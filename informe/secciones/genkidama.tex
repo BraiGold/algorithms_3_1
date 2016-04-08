@@ -13,61 +13,9 @@ $x_i+T \geq x_j \wedge y_i+T \geq y_j$
 \\
 Es inmediato encontrar un algoritmo cuadratico que resuelva este problema, el dasafio entonces esta en realizar uno de complejidad lineal.
     \subsection{Desarrollo}
-    	
-    	Para demostrar que este algoritmo resuelve el problema de manera eficiente utilizaremos dos lemas:
-    		\subsubsection*{Lema 1}
-
-    			Sean $v_{i}$, $v_{j}$ las coordenadas de dos guerreros enemigos. Si se lanza una Genkidama a $v_{j}$ y con la explosión de la misma también muere $v_{i}$, entonces $ \forall h \in (i,j), v_{h}$ morirá también. 
-
-    		\subsubsection*{Demostración Lema 1}
-
-    			Sean $v_{i}$ = ($x_{i}$, $y_{i}$), $v_{j}$ = ($x_{j}$, $y_{j}$) y $v_{h}$ = ($x_{h}$, $y_{h}$) posiciones de guerreros enemigos con $i < j < h$.
-    			Sabemos que $x_{i} > x_{j}$ y $y_{i} < y_{j}$ porque las $x$ son decrecientes y las $y$ crecientes.
-
-    			Quiero ver que $x_{j} + T \geqslant x_{h}$ y que $y_{j} + T > y_{h}$.
-
-    			Veamos primero que $x_{j} + T \geqslant x_{h}$:
-
-    			Sabemos que $x_{j} + T \geqslant x_{i}$ porque disparando en $x_{j}$ muere $x_{i}$ y además $x_{i} > x_{h}$ entonces juntando éstas dos propiedades podemos asegurar que $x_{j} + T > x_{h}$.
-
-    			Ahora veamos que $y_{j} + T > y_{h}$:
-
-    			Sabemos que $y_{j} > y_{h}$ y como $T > 0$ entonces $y_{j} + T > y_{h}$.
-
-    			Entonces queda demostrado que todos los gurreros que se encuentren entre $v_{i}$ y $v_{j}$ mueren cuando se lanza una Genkidama a $v_{j}$.
-
-    		\subsubsection*{Lema 2}
-
-    			Sean $j$ y $k$ posiciones de guerreros enemigos tal que disparandole al que se encuentra en la posición $j$ el elemento de mayor índice que muere es el de la posición $k$, si le disparo a $i$ (con $i < j$) no puede morir el de la posición $k+1$.
 
 
-    		\subsubsection*{Demostración Lema 2}
-    			Demostración por el absurdo:
-
-    			Como disparandole al soldado de la posición $j$ mata al de la posición $k$ entonces sabemos que $x_{j} - T \leq x_{k}$.
-    			Como disparandole al guerrero de la posición $j$ no mata al de la posición $k+1$ entonces $x_{j} - T > x_{k+1}$
-    			También sabemos que $x_{j} < x_{i}$ porque las $x$ son decrecientes.
-
-    			Supongamos que disparando en la posición $i$ mato al enemigo de la posición $k+1$, entonces $x_{i} - T < x_{k+1}$.
-    			entonces tenemos que $x_{j} - T > x_{k+1}$ y además $x_{i} > x_{j}$. Por esto último, si restamos $T$ en ambos lados queda que $x_{i} - T > x_{j} - T$, pero sabiamos que $x_{j} - T > x_{k+1}$ entonces $x_{i} - T > x_{k+1}$ lo que es absurdo porque contradice la hipótesis. 
-    			Por lo tanto $x_{i}$ no puede matar a $x_{k+1}$. \\
-    			\\
-    			\\
-
-
-		Es fácil ver que con esta forma de resolución se mueren todos los enemigos ya que se toma el primer guerrero y se busca cual es la posición mas lejana a la cual puedo lanzar una genkidama y aun así matar al guerrero en cuestión. Por el lema 1, todos los guerreros que se encontraban entre el primero y el soldado a quien se le disparó también morirán. Luego se avanza hasta el primer enemigo que haya quedado vivo del lado derecho y se repite el mismo procedimiento partiendo del primer enemigo que sobrevivió al ataque. \\ 
-
-
-		Veamos ahora que esta es la forma óptima de arrojar las Genkidamas:\\
-
-
-		Como seguro en algún momento va a ser necesario matar al primero entonces vamos a matarlo tirando la Genkidama en un lugar estratégico generando que mueran la mayor cantidad de guerreros posibles junto con el enemigo en cuestión. Para ello, la manera mas eficiente de disparar la genkidama es buscar cual es el último guerrero a quien se le pueda disparar desde el cual siga matando al primero, ya que cualquier otro disparo genarará una menor o igual cantidad de muertes.\\
-		Sean $i$, $j$, $k$ guerreros enemigos donde $j$ representa el último guerrero al que le puedo disparar para matar a $i$. $k$ es el último guerrero que muere cuendo lanzo la Genkidama en $j$.\\
-		Por el lema 2 se sabe que si disparo en cualquier guerrero que se encuentre entre $i$ y $j$ puede pasar que mate a $k$ o no, pero nunca puede pasar que mate al soldado que se encuentra en la posición $k+1$. Entonces si disparo la Genkidama en un $x_{h}$ con $h \in (i, j)$ no mato mas guerreros de los que mataba tirándola en $x_{j}$ del lado derecho, pero si puede pasar que mate menos, por ejemplo cuando no mata al $x_{k}$.\\
-		Por lo tanto ésta es una de las formas óptimas de tirar la Genkidama para matar al primer soldado enemigo.\\
-		Como el algoritmo se repite cada vez que es lanzada una Genkidama tomando como guerrero nicial el último que quedo vivo, entonces debemos volver a dispararle a este de la forma mas eficiente posible. Por lo tanto el algoritmo es eficiente.  \\
-
-		\subsubsection*{Descripción}
+    		\subsubsection*{Descripción}
 		 
 	   	Como el objetivo es matar a todos realizando la menor cantidad de disparos, lo que vamos a hacer es buscar cual es el último guerrero a quien se le pueda disparar desde el cual siga matando al primero de la lista. Allí será donde se disparará la primer Genkidama. Una vez realizado el disparo se buscará cual es el primer soldado que sobrevivió al ataque y se reiniciará el problema tomando a ese guerrero como el nuevo primero. Éste proceso se repetirá hasta que no queden mas guerreros enemigos vivos. \\
 
@@ -127,6 +75,63 @@ Es inmediato encontrar un algoritmo cuadratico que resuelva este problema, el da
   		devolver cantGenkidamas; \;
 	\end{algoritmo} \;
 	
+	    \subsubsection*{Correctitud}
+
+    	
+    	Para demostrar que este algoritmo resuelve el problema de manera eficiente utilizaremos dos lemas:
+    		\subsubsection*{Lema 1}
+
+    			Sean $v_{i}$, $v_{j}$ las coordenadas de dos guerreros enemigos. Si se lanza una Genkidama a $v_{j}$ y con la explosión de la misma también muere $v_{i}$, entonces $ \forall h \in (i,j), v_{h}$ morirá también. 
+
+    		\subsubsection*{Demostración Lema 1}
+
+    			Sean $v_{i}$ = ($x_{i}$, $y_{i}$), $v_{j}$ = ($x_{j}$, $y_{j}$) y $v_{h}$ = ($x_{h}$, $y_{h}$) posiciones de guerreros enemigos con $i < j < h$.
+    			Sabemos que $x_{i} > x_{j}$ y $y_{i} < y_{j}$ porque las $x$ son decrecientes y las $y$ crecientes.
+
+    			Quiero ver que $x_{j} + T \geqslant x_{h}$ y que $y_{j} + T > y_{h}$.
+
+    			Veamos primero que $x_{j} + T \geqslant x_{h}$:
+
+    			Sabemos que $x_{j} + T \geqslant x_{i}$ porque disparando en $x_{j}$ muere $x_{i}$ y además $x_{i} > x_{h}$ entonces juntando éstas dos propiedades podemos asegurar que $x_{j} + T > x_{h}$.
+
+    			Ahora veamos que $y_{j} + T > y_{h}$:
+
+    			Sabemos que $y_{j} > y_{h}$ y como $T > 0$ entonces $y_{j} + T > y_{h}$.
+
+    			Entonces queda demostrado que todos los gurreros que se encuentren entre $v_{i}$ y $v_{j}$ mueren cuando se lanza una Genkidama a $v_{j}$.
+
+    		\subsubsection*{Lema 2}
+
+    			Sean $j$ y $k$ posiciones de guerreros enemigos tal que disparandole al que se encuentra en la posición $j$ el elemento de mayor índice que muere es el de la posición $k$, si le disparo a $i$ (con $i < j$) no puede morir el de la posición $k+1$.
+
+
+    		\subsubsection*{Demostración Lema 2}
+    			Demostración por el absurdo:
+
+    			Como disparandole al soldado de la posición $j$ mata al de la posición $k$ entonces sabemos que $x_{j} - T \leq x_{k}$.
+    			Como disparandole al guerrero de la posición $j$ no mata al de la posición $k+1$ entonces $x_{j} - T > x_{k+1}$
+    			También sabemos que $x_{j} < x_{i}$ porque las $x$ son decrecientes.
+
+    			Supongamos que disparando en la posición $i$ mato al enemigo de la posición $k+1$, entonces $x_{i} - T < x_{k+1}$.
+    			entonces tenemos que $x_{j} - T > x_{k+1}$ y además $x_{i} > x_{j}$. Por esto último, si restamos $T$ en ambos lados queda que $x_{i} - T > x_{j} - T$, pero sabiamos que $x_{j} - T > x_{k+1}$ entonces $x_{i} - T > x_{k+1}$ lo que es absurdo porque contradice la hipótesis. 
+    			Por lo tanto $x_{i}$ no puede matar a $x_{k+1}$. \\
+    			\\
+    			\\
+
+
+		Es fácil ver que con esta forma de resolución se mueren todos los enemigos ya que se toma el primer guerrero y se busca cual es la posición mas lejana a la cual puedo lanzar una genkidama y aun así matar al guerrero en cuestión. Por el lema 1, todos los guerreros que se encontraban entre el primero y el soldado a quien se le disparó también morirán. Luego se avanza hasta el primer enemigo que haya quedado vivo del lado derecho y se repite el mismo procedimiento partiendo del primer enemigo que sobrevivió al ataque. \\ 
+
+
+		Veamos ahora que esta es la forma óptima de arrojar las Genkidamas:\\
+
+
+		Como seguro en algún momento va a ser necesario matar al primero entonces vamos a matarlo tirando la Genkidama en un lugar estratégico generando que mueran la mayor cantidad de guerreros posibles junto con el enemigo en cuestión. Para ello, la manera mas eficiente de disparar la genkidama es buscar cual es el último guerrero a quien se le pueda disparar desde el cual siga matando al primero, ya que cualquier otro disparo genarará una menor o igual cantidad de muertes.\\
+		Sean $i$, $j$, $k$ guerreros enemigos donde $j$ representa el último guerrero al que le puedo disparar para matar a $i$. $k$ es el último guerrero que muere cuendo lanzo la Genkidama en $j$.\\
+		Por el lema 2 se sabe que si disparo en cualquier guerrero que se encuentre entre $i$ y $j$ puede pasar que mate a $k$ o no, pero nunca puede pasar que mate al soldado que se encuentra en la posición $k+1$. Entonces si disparo la Genkidama en un $x_{h}$ con $h \in (i, j)$ no mato mas guerreros de los que mataba tirándola en $x_{j}$ del lado derecho, pero si puede pasar que mate menos, por ejemplo cuando no mata al $x_{k}$.\\
+		Por lo tanto ésta es una de las formas óptimas de tirar la Genkidama para matar al primer soldado enemigo.\\
+		Como el algoritmo se repite cada vez que es lanzada una Genkidama tomando como guerrero nicial el último que quedo vivo, entonces debemos volver a dispararle a este de la forma mas eficiente posible. Por lo tanto el algoritmo es eficiente.  \\
+
+
 
 
 
