@@ -45,3 +45,32 @@
 
 
     \subsection{Experimentación}
+
+    	\subsubsection*{Experimento 1}\;
+
+    		En este experimento se analizará la variación del tiempo de ejecución del algoritmo cuando varía la cantidad de guerreros enemigos. Para ello se generarán diferentes archivos con las coordenadas de los enemigos, uno por cada tamaño de bando contrario. Las coordenadas de los soldados serán aleatorias tomando una cota como máximo valor posible para las variables x e y. Luego pasando esos archivos como parámetro de entrada al problema de kamehameha, se medirán los tiempos de ejecución. \;
+
+    	\subsubsection*{Datos de entrada}\;
+    		Los tamaños del bando enemigo tomados fueron $5$ $7$ $9$ $10$ $11$ $12$ $13$ $14$ $15$ $16$ $17$ $18$.
+			Para generarlos se utilizó el generador.cpp que se encuentra en la carpeta exp/kamehameha/exp1 y para correrlo se utilizó el exp1.sh que se encuentra en la misma carpeta. \;
+			Con el fin de acercarse a los valores reales y descartar posibles falsos resultados, se ejecuta la resolución del problema para cada uno de los tamaños de equipo siete veces y se calcula el promedio de los tiempos medidos.\;
+
+		\subsubsection*{Conclusiones}\;
+
+			Como se puede observar en el gráfico, el tiempo de ejecución aumenta de manera exponencial con respecto a la cantidad de guerreros enemigos dando una complejidad de $\mathcal{O}(N^{N+2})$. Esto es así ya que el algoritmo busca todas las posibles combinaciones de disparos a efectuar y de todas ellas elige la que requiera menor cantidad de lanzamientos. \;
+
+		\;
+		\;
+		
+    	\subsubsection*{Experimento 2}\;
+    		En este experimento vamos a comparar como varia el tiempo de ejecución del algoritmo para casos bordes. En el primero tomaremos guerreros que se encuentren dispuestos de forma alineada de manera que con un solo disparo se pueda matar a todo el equipo enemigo. En el segundo, los guerreros estarán distribuidos de forma tal que solo se pueda matar de a dos de ellos con un disparo. Tomaremos la misma cantidad de soldados del bando enemigo para ambos casos. \;
+
+    	\subsubsection*{Datos de entrada}\;
+    		El tamaño del bando enemigo utilizado fue de 18 guerreros.
+			Para generar el primer caso se utilizó el generador.cpp y para el segundo el generador2.cpp que se encuentran en la carpeta exp/kamehameha/exp2. Para correrlos se utilizó el exp2.sh que se encuentra en la misma carpeta.\;
+			Con el fin de acercarse a los valores reales y descartar posibles falsos resultados, se ejecuta la resolución del problema para cada uno de los tamaños de equipo siete veces y se calcula el promedio de los tiempos medidos.\;
+
+		\subsubsection*{Conclusiones}\;
+			Como se puede ver en la tabla, el tiempo de ejecución cuando los puntos se encuentran alineados es mucho menos que cuando solo puedo matar de a dos guerreros enemigos. Esto se debe a que el algoritmo toma todos los posibles pares de guerreros y para cada uno de ellos se fija como armar mas pares sin tener en cuenta los soldados que quedan alineados con la recta que une al primer par. En el caso que estén todos alineados la complejidad bajará a $\mathcal{O}(N)$ ya que para ningún posible par que se pueda armar en un primer momento quedan mas guerreros que no se encuentren alineados con el primer par. Por lo que solo tomará posibles pares de guerreros y finalizará la ejecución. En cambio cuando están muy desalineados, por cada par inicial quedan exactamente $n - 2$ guerreros para reordenar en pares, generando así una complejidad de $\mathcal{O}(N^{N+2})$.
+
+
