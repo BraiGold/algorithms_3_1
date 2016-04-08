@@ -1,6 +1,6 @@
 \section{KaioKen}
 
-	\subsection{Descripción del Problema}
+	\subsection{Introducción}
 		Sea $n \in \mathds{N}$, $c: conj(lista(nat))$. El objetivo de este problema es encontrar la menor cantidad de listas necesarias que cumplan con las siguientes condiciones: 
 		    \begin{itemize}
                 \item ($ \forall l \in c$) tam($l$) = $n$
@@ -72,7 +72,7 @@
         GRAFICO 2!!!\\
         \\
 
-        En este caso, la cantidad de subpeleas previas depende de $k_{1}$, el de cantidad mayor entre las dos partes. Las peleas anteriores terminan siendo $\lceil log_{2}(k_{1}) \rceil$. Por hipótesis inductiva. Esto es mayor a $\lceil log_{2}(N/2) \rceil$. \\
+        En este caso, la cantidad de subpeleas previas depende de $k_{1}$, el de cantidad mayor entre las dos partes(que es de tamaño por lo menos la mitad). Las peleas anteriores terminan siendo $\lceil log_{2}(k_{1}) \rceil$. Por hipótesis inductiva. Esto es mayor o igual a $\lceil log_{2}(N/2) \rceil$ concluyendo asi la optimalidad de la resolucion. \\
 
         Caso N Impar: \\
         \\
@@ -82,7 +82,7 @@
 
         Por hipótesis inductiva, podemos hacer pelear cada equipo entre sí en como mínimo $\lceil log_{2}((N-1)/2+1) \rceil$ $=$ $\lceil log_{2}((N+1)/2) \rceil$. Como $N$ es impar, $\lceil log_{2}((N+1)/2) \rceil$ es igual a $\lceil log_{2}(N/2) \rceil$. De esa manera, nos vuelve a quedar como cantidad de peleas total $\lceil log_{2}(N) \rceil$. \\
 
-        Un corte de tamaños distinto a éste genera el mismo resultado que el caso par explicado anteriormente. \;
+        Un corte de tamaños distinto a éste genera el mismo resultado que el caso par explicado anteriormente, de donde podemos deducir entonces la optimalidad de la solucion. \;
 
 
 
@@ -121,7 +121,6 @@ Por ejemplo, para $n$=8, el ciclo número dos recorre como indican las flechas r
 \includegraphics[height=4cm]{graficos/ciclo.png}
 
 
-    \subsection{Código}
 
 
     \subsection{Experimentación}
