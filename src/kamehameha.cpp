@@ -6,6 +6,7 @@
 #include <vector>
 #include <cstdio>
 #include <sys/time.h>
+#include <climits>
 
 using namespace std;
 
@@ -24,18 +25,19 @@ double get_time()
 
 vector<pair<pair<int,int>,pair<int,int> > > generarConjPares(std::vector<std::pair<int,int> > puntos);
 vector<pair<int,int> > generarConjSinLD(pair<pair<int,int>,pair<int,int> > par,std::vector<std::pair<int,int> > puntos);
-vector<pair<pair<int,int>,pair<int,int> > > mejoresPares(vector<pair<int,int> > puntos);
-int conjMasChico (vector<vector<pair<pair<int,int>,pair<int,int> > > > posiblesConvinaciones);
+vector<pair<pair<int,int>,pair<int,int> > > mejoresPares(vector<pair<int,int> > puntos,int k,int minCantidad,vector<pair<pair<int,int>,pair<int,int> > >& elPeor);
+int conjMasChico (vector<vector<pair<pair<int,int>,pair<int,int> > > > posiblesCombinaciones);
 int ConjLD(pair<pair<int,int>,pair<int,int> >  par,vector<pair<int,int> >& puntosCopia,vector<int>& matadosConEstePar,vector<bool>& puntosCopiaMascara);
 void mostrarLinea(int cantLD,vector<int>& matadosConEstePar);
 
 int kamehameha(std::vector<std::pair<int,int> > puntos,vector<pair<pair<int,int>,pair<int,int> > >& paresOptimos){
-   paresOptimos = mejoresPares(puntos);
+  vector<pair<pair<int,int>,pair<int,int> > > pares = generarConjPares(puntos);//genera conj Pares que pasen por el ultimo osea por puntos.back()
+   paresOptimos = mejoresPares(puntos,-1,INT_MAX,pares);
 
     return paresOptimos.size();
 }
 
-vector<pair<pair<int,int>,pair<int,int> > > mejoresPares(vector<pair<int,int> > puntos){
+vector<pair<pair<int,int>,pair<int,int> > > mejoresPares(vector<pair<int,int> > puntos,int k,int minCantidad,vector<pair<pair<int,int>,pair<int,int> > >& elPeor){
   if(puntos.size()==0){
     vector<pair<pair<int,int>,pair<int,int> > > res;
     return res;
@@ -52,17 +54,24 @@ vector<pair<pair<int,int>,pair<int,int> > > mejoresPares(vector<pair<int,int> > 
     }else{
       vector<pair<pair<int,int>,pair<int,int> > > pares = generarConjPares(puntos);//genera conj Pares que pasen por el ultimo osea por puntos.back()
 
-      vector<vector<pair<pair<int,int>,pair<int,int> > > >  posiblesConvinaciones(pares.size(),pares);//creo un conj de conj de pares con tamaño pares.size y lo lleno con que no importa tipo pares
+      vector<vector<pair<pair<int,int>,pair<int,int> > > >  posiblesCombinaciones(pares.size(),pares);//creo un conj de conj de pares con tamaño pares.size y lo lleno con que no importa tipo pares
 
       puntos.pop_back();  //saco el ultimo para recursivisar sin este
+      k++;//poda
       for (int i = 0; i < pares.size(); i++) {
-
-        posiblesConvinaciones[i]=mejoresPares(generarConjSinLD(pares[i],puntos));
-        posiblesConvinaciones[i].push_back(pares[i]);
+        posiblesCombinaciones[i]=mejoresPares(generarConjSinLD(pares[i],puntos),k,minCantidad,elPeor);
+        posiblesCombinaciones[i].push_back(pares[i]);
+        if(k==0 && posiblesCombinaciones[i].size() < minCantidad){//poda
+          minCantidad=posiblesCombinaciones[i].size();//poda
+        }else{//poda
+          if( k + 1 > minCantidad){//poda
+            return elPeor;//poda
+          }
+        }//poda
       }
 
-      int mejorPar= conjMasChico(posiblesConvinaciones);
-      return posiblesConvinaciones[mejorPar];
+      int mejorPar= conjMasChico(posiblesCombinaciones);
+      return posiblesCombinaciones[mejorPar];
     }
   }
 }
@@ -79,11 +88,11 @@ vector<pair<pair<int,int>,pair<int,int> > > generarConjPares(std::vector<std::pa
   return pares;
 }
 
-int conjMasChico (vector<vector<pair<pair<int,int>,pair<int,int> > > > posiblesConvinaciones){
+int conjMasChico (vector<vector<pair<pair<int,int>,pair<int,int> > > > posiblesCombinaciones){
   int    min=0;
 
-  for (int i = 0; i < posiblesConvinaciones.size(); i++) {
-    if (posiblesConvinaciones[i].size()<posiblesConvinaciones[min].size())
+  for (int i = 0; i < posiblesCombinaciones.size(); i++) {
+    if (posiblesCombinaciones[i].size()<posiblesCombinaciones[min].size())
       min=i;
 
   }
@@ -112,7 +121,7 @@ int main(int argc, char* argv[]){
   vector<std::pair<int,int> > puntos;
   for (int i = 0; i < n; i++) {
     cin >> a >> b;
-    //std::cerr << i<<"---("<< a << ";" << b<<")"<< std::endl;
+  //  std::cerr << i<<"---("<< a << ";" << b<<")"<< std::endl;
     std::pair<int, int>p1(a,b);
     puntos.push_back(p1);
   }
@@ -122,7 +131,7 @@ int main(int argc, char* argv[]){
 
     vector<pair<int,int> > puntosCopia(puntos);
     vector<bool > puntosCopiaMascara(puntosCopia.size(),true);
-    bool pidieronTiempo = false; 
+    bool pidieronTiempo = false;
     if (argc > 1) {
       if (argv[1] == string("-t")) {
         pidieronTiempo = true;
@@ -134,7 +143,7 @@ int main(int argc, char* argv[]){
     int cantDisparos=kamehameha(puntos,paresOptimos);
     tiempo = get_time();
     if (!pidieronTiempo) {
-     
+
     std::cout << cantDisparos << std::endl;
     vector<int> matadosConEstePar;
     int cantLD;
@@ -149,13 +158,13 @@ int main(int argc, char* argv[]){
     } else {
       printf("%.10f ", tiempo);
     }
-    //std::cerr << "cantidad de disparos: " << cantDisparos << std::endl;
-    //::cerr << "fueron: " <<paresOptimos.size() << std::endl;
-    /*
+  /*  std::cerr << "cantidad de disparos: " << cantDisparos << std::endl;
+    ::cerr << "fueron: " <<paresOptimos.size() << std::endl;
+
     for (int i = 0; i < paresOptimos.size() ; i++) {
-    //  std::cerr <<"[(" << paresOptimos[i].first.first<<";"<<paresOptimos[i].first.second<<")"<<"(" << paresOptimos[i].second.first<<";"<<paresOptimos[i].second.second<<")" <<"] " << std::endl;
-    }
-    */
+      std::cerr <<"[(" << paresOptimos[i].first.first<<";"<<paresOptimos[i].first.second<<")"<<"(" << paresOptimos[i].second.first<<";"<<paresOptimos[i].second.second<<")" <<"] " << std::endl;
+    }*/
+
 }
 
 
