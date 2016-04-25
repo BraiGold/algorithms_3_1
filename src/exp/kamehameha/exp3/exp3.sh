@@ -41,7 +41,7 @@ done
 for k in $n; do
   printf "%d " $k >> $(dirname $0)/tiempos-exp3-sinPoda.txt
   for h in $(seq 1 $iteraciones); do
-     $(dirname $0)/../../../kamehamehaSinPoda < $(dirname $0)/puntosRandom-$k.txt -t >> $(dirname $0)/tiempos-exp3-sinPoda.txt
+     $(dirname $0)/../../../kamehameha < $(dirname $0)/puntosRandom-$k.txt -t >> $(dirname $0)/tiempos-exp3-sinPoda.txt
   done
   printf "\n" >> $(dirname $0)/tiempos-exp3-sinPoda.txt
 done
