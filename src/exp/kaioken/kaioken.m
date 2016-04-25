@@ -29,5 +29,6 @@ hold off;
 legend('Complejidad O(n log n)','Tiempo de ejecucion del algoritmo','Location','northwest')
 xlabel('Cantidad de Guerreros','FontSize',12);
 ylabel('Tiempo de ejecucion en segundos','FontSize',10);
+title('Tiempo de ejecucion en funcion de n')
 %set(get(h, 'Parent'), 'YScale', 'log');
 print('kaioken', filetype);
